@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&family=Red+Hat+Display&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="/styles/reset.css">
+        <link rel="stylesheet" href="/styles/game.css">
+
+        <link rel="icon" type="image/x-icon" href="/galactic-agent-icon.png">
+
+
+        <!-- <script src="/scripts/jquery-3.7.0.min.js"></script>
+        <script src="/scripts/helper.js"></script> -->
+        <title>Galactic Agent</title>
+    </head>
+
+    <body oncontextmenu="return false;">
+        <div id="content" class="content">
+            <div id="startScreen" class="screen active">
+                <h1>Galactic Agent</h1>
+                <div class="menu">
+                    <h2>PRESS START</h2>
+                    <button id="start" autofocus><span class="flare"></span>Start</button>
+                </div>
+            </div>
+            <div id="pauseScreen" class="menu screen">
+                <h2>GAME PAUSED</h2>
+                <button id="resume"><span class="flare"></span>Resume</button>
+                <button id="options"><span class="flare"></span>Options</button>
+                <button id="restart"><span class="flare"></span>Restart Mission</button>
+                <a href="./index.html" class='button' tabindex="-1"><button><span class="flare"></span>Quit
+                        Game</button></a>
+            </div>
+            <div id="optionsScreen" class="menu screen">
+                <h2>OPTIONS</h2>
+                <button id="toggleMusic"><span class="flare"></span>Toggle Music: ON</button>
+                <button id="keyboardLayout"><span class="flare"></span>Keyboard:</button>
+                <button id="optionsBack"><span class="flare"></span>Back</button>
+            </div>            
+            <div id="victoryScreen" class="screen">
+                <h2>OBJECTIVE SECURED</h2>
+                <div class="menu">
+                    <div id="stats"></div>
+                    <button id="playAgain"><span class="flare"></span>Next Assignment</button>
+                </div>
+            </div>
+            <div id="deadScreen" class="screen">
+                <h2>AGENT DOWN</h2>
+                <div class="menu">
+                    <button id="tryAgain"><span class="flare"></span>Send Another One</button>
+                </div>
+            </div>
+        </div>
+        <div id="ui">
+            <div id="timer" class="box">0:00:00:00</div>
+            <div id="objectives"></div>
+            <div id="levelStart" class="box">LEVEL 1</div>
+        </div>
+        <!-- <div id="screenEffects"></div> -->
+        <p class="version" id="version"></p>
+        <div id="container"><canvas id="canvas"></canvas></div>
+
+        <script src="/helper.js"></script>
+
+        <script src="/game/3rd-party/howler.min.js"></script>
+        <script src="/game/pyreEngine/pyreEngine.js"></script>
+        <script src="/game/references.js"></script>
+        <script src="/game/constants.js"></script>
+        <script src="/game/changelog.js"></script>
+        <script src="/game/gameHelpers.js"></script>
+        <script src="/game/input.js"></script>
+        <script src="/game/screens.js"></script>
+        <script src="/game/camera.js"></script>
+        <script src="/game/objects/gameObject.js"></script>
+        <script src="/game/objects/projectile.js"></script>
+        <script src="/game/objects/upgrade.js"></script>
+        <script src="/game/objects/goal.js"></script>
+        <script src="/game/objects/coin.js"></script>
+        <script src="/game/objects/damageBox.js"></script>
+        <script src="/game/objects/platform.js"></script>
+        <script src="/game/objects/glassPane.js"></script>
+        <script src="/game/objects/player.js"></script>
+        <script src="/game/gameBase.js"></script>
+    </body>
+
+</html>

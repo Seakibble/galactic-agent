@@ -1,0 +1,326 @@
+* {
+    font-size: 30px;
+}
+
+body {
+    background: black;
+    color: white;
+    font-family: 'Fira Mono', monospace;
+    /* font-family: 'Red Hat Display', sans-serif; */
+    font-size: 30px;
+    box-sizing: border-box;
+    cursor: none;
+
+    --primary: black;
+    --secondary: white;
+    --tertiarty: #ccffff;
+    --quick: 0.15s;
+}
+
+.content {
+    display: grid;
+    grid-gap: 20px;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    place-content: center;
+    background: hsl(0,0%,0%,0.8);
+    z-index: 5;
+    cursor: default;
+}
+
+.menu {
+    display: grid;
+    grid-gap: 20px;
+    justify-content: center;
+}
+.screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    place-content: center;
+}
+
+.screen.active {
+    display: grid;
+}
+
+#startScreen {
+    background: linear-gradient(110deg, #5b002a, #13026c, #004260, #600080);
+    background-size: 400% 400%;
+	animation: gradient 20s infinite;
+}
+
+/* #screenEffects {
+    position: fixed;
+    cursor: default;
+    pointer-events: none;
+    z-index: 15;
+    width: 100vw;
+    height: 102vh;
+    --scanColorA: rgba(0, 0, 139, 0.02);
+    --scanColorB: rgba(0, 128, 128, 0.01);
+    --scanOffset: 20px;
+    --scanLineWidth: 40px;
+    background: repeating-linear-gradient(
+        0deg,
+        var(--scanColorA),
+        var(--scanColorA) var(--scanOffset),
+        var(--scanColorB) var(--scanOffset),
+        var(--scanColorB) var(--scanLineWidth)
+        );
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+
+    animation: scanlines 1s linear infinite;
+}
+@keyframes scanlines {
+  from {transform: translate(0px, 0px);}
+  to {transform: translate(0px, var(--scanLineWidth));}
+} */
+
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 1em;
+    font-weight: bold;
+}
+
+h1 {
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 3em;
+}
+h2 {
+    font-size: 1.5em;
+    min-width: 400px;
+}
+h3 {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+    color: var(--primary);
+}
+
+p {
+    color: var(--primary);
+    font-size: 0.8em;
+    line-height: 1.5em;
+}
+
+#stats {
+    background: var(--tertiarty);
+    padding: 20px;
+    position: relative;
+}
+
+.emphasis{
+    font-weight: bold;
+}
+
+.grade {
+    font-size: 1.5em;
+    line-height: 1em;
+    display: grid;
+    position: absolute;
+    right: -15px;
+    bottom: -15px;
+    place-items: center;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    background: var(--secondary);
+    color: var(--primary);
+    padding: 5px;
+    border: 4px solid var(--primary);
+    border-radius: 50px;
+    box-shadow: var(--primary) 0 0 10px;
+    font-weight: bold;
+    transform: rotate(10deg);
+}
+
+a.button {
+    text-decoration: none;
+}
+
+button, a > button {
+    background: var(--primary);
+    color: var(--secondary);
+
+    font-family: 'Fira Mono', monospace;
+    
+    width: 100%;
+    height: 50px;
+    position: relative;
+    
+    padding: 5px 25px;
+    display: block;
+    border: none;
+    box-sizing: border-box;
+    text-align: left;
+    font-weight: bold;
+
+    transition: color var(--quick), background var(--quick);
+}
+
+button:hover, button:focus, button.selected {
+    color: var(--primary);
+    background: var(--secondary);
+    cursor: pointer;
+}
+
+button .flare {
+    display: block;
+    position: absolute;
+
+    background: var(--primary);
+
+    left: 0;
+    top: 0;
+    width: 0px;
+    height: 100%;
+    transition: width var(--quick);
+}
+
+button:hover .flare, button:focus .flare, button.selected .flare {
+    width: 15px;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+}
+
+.version {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 0.5em;
+    padding: 10px;
+    background: black;
+    color: var(--secondary);
+    opacity: 0.7;
+    z-index: 6;
+    cursor: pointer;
+}
+.version:hover {
+    background: var(--secondary);
+    color: var(--primary);
+    
+}
+
+#ui {
+    position: fixed;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    grid-template-rows: auto 1fr;
+    padding: 30px;
+    z-index: 1;
+    display: none;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+#ui.active {
+    display: grid;
+}
+
+#timer {
+    justify-self: center;
+    color: var(--secondary);
+    width: 100px;
+}
+
+#timer span.mil {
+    font-size: 0.7em;
+}
+
+.box {
+    background: rgba(0,0,0, 0.5);
+    padding: 10px 20px;
+}
+#levelStart {    
+    justify-self: left;
+    align-self: end;
+    opacity: 0;
+    font-size: 2em;
+    color: var(--secondary);
+}
+
+.start {
+    animation: levelStart 5s;
+}
+
+#objectives {
+    justify-self: left;
+    align-self: start;
+    display:grid;
+}
+
+#objectives div {
+    opacity: 0;
+    padding: 5px 10px;
+    font-size: 0.7em;
+}
+
+#objectives .objective {
+    color: var(--secondary);
+    opacity: 1;
+    animation: fadeIn 1s ease-in;
+}
+
+#objectives .objective.primary {
+    color: goldenrod;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes levelStart {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    15% {
+        transform: translateX(0px);
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

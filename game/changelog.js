@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.13.6', log: "Excel-edited CSVs break, apparently" },
     { version: 'v0.13.5', log: "Cleaned up Pyre Audio loadBulletTime" },
     { version: 'v0.13.4', log: "Added gun to first level for bullet time demo" },
     { version: 'v0.13.3', log: "Cleaned up the console a bit" },

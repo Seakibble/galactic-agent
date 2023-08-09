@@ -219,7 +219,6 @@ class Pyre {
                 html5: true,
                 autoplay: true
             })
-            this.musicName = src
         }
         _loadTrack(src, autoplay = false) {
             if (this.music) this.music.stop()

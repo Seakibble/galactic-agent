@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.12.1', log: "Updated the html file to be index" },
     { version: 'v0.12.0', log: "Moved game to its own repo" },
     { version: 'v0.11.0', log: "Started moving game loop/data to PyreEngine" },
     { version: 'v0.10.3', log: "Updated icon" },

@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.13.0', log: "Bullet time!" },
     { version: 'v0.12.3', log: "Removed another leading slash" },
     { version: 'v0.12.2', log: "Removed leading slash in file urls" },
     { version: 'v0.12.1', log: "Updated the html file to be index" },

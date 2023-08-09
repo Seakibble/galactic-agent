@@ -11,6 +11,7 @@ const FPS = 60
 const GRAVITY = new Pyre.Vector(0, 0.5)
 const CAMERA_LAG = 0.08
 const CAMERA_BOUNDARY = 400
+const TIMESCALE_LERP_FACTOR = 0.05
 
 // Audio
 const MUSIC_VOLUME = 0.4
@@ -43,6 +44,7 @@ const AIR_DRAG = 0.96
 const FLOOR_DRAG = 0.7
 const MAX_SPEED = 7
 const ACCELERATION = 0.8
+const BULLET_TIME_FACTOR = 0.2
 
 const VISOR_COLOR = 'limegreen'
 const GEAR_COLOR = '#ccc'

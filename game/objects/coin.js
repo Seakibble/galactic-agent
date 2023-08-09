@@ -25,11 +25,11 @@ Coin = function (x, y) {
     obj.update = function () {
         if (this.pos.distance(Data.player.center()) < this.collectRange) {
             let toPlayer = Pyre.Vector.lerpDifference(this.pos, Data.player.center(), 0.03)
-            this.vel.add(toPlayer)
+            this.vel.add(toPlayer.multiply(Game.timeScale))
         } else {
             this.vel.multiply(0.5)
         }
-        this.pos.add(this.vel)
+        this.pos.add(this.vel.clone().multiply(Game.timeScale))
     },
 
     Data.objects.push(obj)

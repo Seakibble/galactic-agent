@@ -21,10 +21,10 @@ Obj = function (x, y, w=10, h=10) {
         },
         update: function () {
             if (this.gravity && !this.grounded) {
-                this.vel.add(GRAVITY)
+                this.vel.add(GRAVITY.clone().multiply(Game.timeScale))
             }
             
-            this.pos.add(this.vel)
+            this.pos.add(this.vel.clone().multiply(Game.timeScale))
         },
         damage: function (dam) {
             if (this.health) {

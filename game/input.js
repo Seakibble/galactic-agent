@@ -64,11 +64,6 @@ Input = function () {
                 }
             }
 
-            // Aiming
-            if (this.aiming) {
-
-            }
-
             // Shooting
             if (Data.player.upgrades.gun && this.shoot) {
                 this.shoot = false
@@ -76,13 +71,18 @@ Input = function () {
                 // audio.player.shoot.play()
                 Sound.playSFX('shoot')
                 let velocity = new Pyre.Vector(Math.cos(Data.player.aimingAngle), Math.sin(Data.player.aimingAngle))
-                velocity.multiply(50)
+                velocity.multiply(30)
+                let position = Data.player.center().add(velocity.clone())
+
                 Projectile(
-                    Data.player.pos.x + Data.player.size.x / 2 + facing * 10,
-                    Data.player.pos.y + Data.player.size.y / 2,
+                    position.x,
+                    position.y,
                     5, 5,
                     velocity.x, velocity.y)
             }
+
+            if (Data.player.upgrades.gun && this.aiming) Game.setTimeScale(BULLET_TIME_FACTOR)
+            else Game.setTimeScale(1)
 
 
             // Play walking SFX

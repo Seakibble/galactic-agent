@@ -50,10 +50,10 @@ Player = function (x, y) {
 
     obj.update = function () {
         if (this.gravity && !this.grounded && this.dashCooldown < 0) {
-            this.vel.add(GRAVITY)
+            this.vel.add(GRAVITY.clone().multiply(Game.timeScale))
         }
 
-        this.pos.add(this.vel)
+        this.pos.add(this.vel.clone().multiply(Game.timeScale))
 
         // 
         if (input.aiming) {
@@ -210,7 +210,10 @@ Player = function (x, y) {
                 this.reticulePos.x, this.reticulePos.y,
                 this.pos.x + this.size.x / 2, this.pos.y + pulse + this.size.y / 2,
                 'red'))
+            
+            
         }
+
         if (this.upgrades.gun) {
             camera.Render(DrawObj(gun, pivot), 1)
         }

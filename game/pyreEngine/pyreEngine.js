@@ -368,6 +368,8 @@ class Pyre {
             this.elapsed = null
             this.fpsInterval = null
 
+            this.timeScale = 1
+
             this.running = false
             this.previousTimestamp = 0
             this.updateCallback = null
@@ -382,6 +384,12 @@ class Pyre {
         }
         stop() {
             this.running = false
+        }
+
+        setTimeScale(newTimeScale) {
+            if (this.timeScale !== newTimeScale) {
+                this.timeScale += (newTimeScale - this.timeScale) * TIMESCALE_LERP_FACTOR
+            }
         }
 
         setUpdateCallback(callback) {

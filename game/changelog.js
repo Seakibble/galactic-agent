@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.13.2', log: "Bullet time music" },
     { version: 'v0.13.1', log: "Coins no longer block bullets" },
     { version: 'v0.13.0', log: "Bullet time!" },
     { version: 'v0.12.3', log: "Removed another leading slash" },

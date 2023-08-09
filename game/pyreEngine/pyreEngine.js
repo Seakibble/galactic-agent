@@ -120,10 +120,12 @@ class Pyre {
                 master: 1,
                 music: 1,
                 sfx: 1,
-                voice: 1
+                voice: 1,
+                bulletTime: 0
             }
             this.musicName = null
             this.music = null
+            this.bulletTime = null
             this._enableMusic = true
             this._pauseFade = false
             this._pauseFadeValue = 0.35
@@ -134,6 +136,7 @@ class Pyre {
             this._pauseFade = enabled
             this._updateMusicVolume()
             this._updateSFXVolume()
+            this._updateBulletTimeVolume()
         }
         stopMusic() {
             this.music.fade(this._calculateVolume('music'), 0, 100)
@@ -163,13 +166,22 @@ class Pyre {
         _updateMusicVolume() {
             if (this.music) this.music.volume(this._calculateVolume('music'))
         }
+        _updateBulletTimeVolume() {
+            if (this.bulletTime) this.bulletTime.volume(this._calculateVolume('bulletTime'))
+        }
         setMasterVolume(volume) {
             this.volume.master = volume
             this._updateMusicVolume()
             this._updateSFXVolume()
+            this._updateBulletTimeVolume()
         }
         setMusicVolume(volume) {
             this.volume.music = volume
+            this._updateMusicVolume()
+        }
+        setBulletTimeVolume(volume) {
+            this.volume.bulletTime = volume
+            this._updateBulletTimeVolume()
             this._updateMusicVolume()
         }
         enableMusic(b = true) {
@@ -185,7 +197,6 @@ class Pyre {
             return this._enableMusic
         }
         loadMusic(src, autoplay = true) {
-            console.log(this, src)
             if (!this.music || !this.music.playing()) {
                 // just go
                 this._loadTrack(src, autoplay)
@@ -195,14 +206,22 @@ class Pyre {
                 this.music.fade(this._calculateVolume('music'), 0, 4000)
                 console.log('playing:', this.music.playing())
                 this.music.once('fade', () => {
-                    console.log('hi2')
                     this._loadTrack(src, autoplay)
                 })
             }
-            console.log(this)
+        }
+        loadBulletTime(src) {
+            if (this.bulletTime) this.bulletTime.stop()
+            this.bulletTime = new Howl({
+                src: ['game/audio/music/' + src + '.mp3'],
+                loop: true,
+                volume: this._calculateVolume('bulletTime'),
+                html5: true,
+                autoplay: true
+            })
+            this.musicName = src
         }
         _loadTrack(src, autoplay = false) {
-            console.log('hi')
             if (this.music) this.music.stop()
             this.music = new Howl({
                 src: ['game/audio/music/' + src + '.mp3'],
@@ -226,7 +245,9 @@ class Pyre {
             })
         }
         _calculateVolume(type) {
-            return this.volume.master * this.volume[type] * (this._pauseFade ? this._pauseFadeValue : 1)
+            let volume = this.volume.master * this.volume[type] * (this._pauseFade ? this._pauseFadeValue : 1)
+            if (type === 'music') volume *= (1-this.volume.bulletTime)
+            return volume
         }
     }
 

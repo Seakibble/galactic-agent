@@ -49,6 +49,8 @@ Player = function (x, y) {
     }
 
     obj.update = function () {
+        if (this.upgrades.gun && !Sound.bulletTime.playing()) Sound.bulletTime.play()
+        
         if (this.gravity && !this.grounded && this.dashCooldown < 0) {
             this.vel.add(GRAVITY.clone().multiply(Game.timeScale))
         }
@@ -266,6 +268,7 @@ Player = function (x, y) {
         
     }
     Sound.loadSFXArray(['jump', 'walk', 'land', 'landHeavy', 'shoot'])
+    Sound.loadBulletTime('bullet-time')
     
     Data.objects.push(obj)
     Data.player = obj

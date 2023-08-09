@@ -81,8 +81,14 @@ Input = function () {
                     velocity.x, velocity.y)
             }
 
-            if (Data.player.upgrades.gun && this.aiming) Game.setTimeScale(BULLET_TIME_FACTOR)
-            else Game.setTimeScale(1)
+            if (Data.player.upgrades.gun && this.aiming) {
+                Game.setTimeScale(BULLET_TIME_FACTOR)
+                Sound.setBulletTimeVolume(1 - Game.timeScale)
+            } else {
+                Game.setTimeScale(1)
+                Sound.setBulletTimeVolume(1 - Game.timeScale)
+            }
+            console.log(Sound._calculateVolume('music'))
 
 
             // Play walking SFX

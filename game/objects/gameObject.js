@@ -8,6 +8,7 @@ Obj = function (x, y, w=10, h=10) {
         moves: false,
         collision: false,
         obstructs: false,
+        shootable: true,
         grounded: false,
         sticking: false,
         onCollision: null,

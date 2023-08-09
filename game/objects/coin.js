@@ -4,6 +4,7 @@ Coin = function (x, y) {
     obj.size.y = 10
 
     obj.collision = true
+    obj.shootable = false
     obj.color = "lightyellow"
     obj.collectable = true
     obj.collectRange = 100

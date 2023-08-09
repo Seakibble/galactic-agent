@@ -5,13 +5,16 @@ Projectile = function (x, y, w, h, vx, vy) {
 
     obj.color = "white"
     obj.collision = true
+    obj.shootable = false
     obj.moves = true
     obj.projectile = true
     obj.damage = 1
 
     obj.onCollision = function (other) {
-        other.damage(this.damage)
-        this.destroy = true
+        if (other.shootable) {
+            other.damage(this.damage)
+            this.destroy = true
+        }
     }
 
     Data.objects.push(obj)

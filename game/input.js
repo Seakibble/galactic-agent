@@ -88,7 +88,6 @@ Input = function () {
                 Game.setTimeScale(1)
                 Sound.setBulletTimeVolume(1 - Game.timeScale)
             }
-            console.log(Sound._calculateVolume('music'))
 
 
             // Play walking SFX

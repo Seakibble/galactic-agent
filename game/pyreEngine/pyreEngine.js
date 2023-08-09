@@ -204,7 +204,7 @@ class Pyre {
                 // fade 
                 
                 this.music.fade(this._calculateVolume('music'), 0, 4000)
-                console.log('playing:', this.music.playing())
+                // console.log('playing:', this.music.playing())
                 this.music.once('fade', () => {
                     this._loadTrack(src, autoplay)
                 })
@@ -281,7 +281,6 @@ class Pyre {
                         this.name = this.map[1][1]
                         this.music = this.map[2][1]
                         this.upgrades = this.map[3][1].split('')
-                        console.log(this.upgrades)
 
                         
                         Sound.loadMusic(this.music)
@@ -292,12 +291,11 @@ class Pyre {
                             row.shift()
                             let char = row[row.length-1]
                             if (char) char = char.split('\r')[0]
-                            console.log(char, char === 'p')
+                            // console.log(char, char === 'p')
                             row[row.length - 1] = char
                         })
 
-                        // this.map.pop()
-                        console.log(this.map.length, this.map[0].length)
+                        // console.log(this.map.length, this.map[0].length)
                         this.gridX = this.map[0].length
                         this.gridY = this.map.length
 

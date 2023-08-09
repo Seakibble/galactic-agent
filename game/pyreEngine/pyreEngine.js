@@ -239,7 +239,7 @@ class Pyre {
             this.gridX = null
             this.gridY = null
             this.gridWall = 1000
-            this.path = '/game/levels/'
+            this.path = 'game/levels/'
         }
         loadLevel(src) {
             return new Promise((resolve, reject) => { 

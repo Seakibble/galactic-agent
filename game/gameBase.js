@@ -5,6 +5,8 @@ const Sound = new Pyre.Audio()
 const Level = new Pyre.Level()
 const Data = new Pyre.GameData()
 const Game = new Pyre.GameLoop()
+const Sprites = new Pyre.SpriteManager()
+
 let input = Input()
 let camera = Camera()
 
@@ -48,7 +50,7 @@ let game = {
     },
     draw: function () {
         // ctx.fillStyle = this.levelColor
-        ctx.fillStyle = '#68f'
+        ctx.fillStyle = '#a44'
         ctx.fillRect(0, 0, $canvas.width, $canvas.height)
         // let style = "hsl(0,0%, " + pulse + "%)";
         // ctx.textAlign = "center";
@@ -208,7 +210,7 @@ let game = {
         this.now = Date.now();
         this.elapsed = this.now - this.then;
 
-        if (this.paused) {
+        if (game.paused) {
             input.menuInput()
             return
         }

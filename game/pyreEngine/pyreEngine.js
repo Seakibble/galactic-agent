@@ -307,11 +307,11 @@ class Pyre {
             })
         }
         _generateLevel() {
-            Platform(-this.gridWall, this.gridY * GRID_SIZE, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall)// bottom
-            Platform(-this.gridWall, -this.gridWall, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall) // top
+            Platform(-this.gridWall, this.gridY * GRID_SIZE, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null)// bottom
+            Platform(-this.gridWall, -this.gridWall, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null) // top
 
-            Platform(-this.gridWall, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2) // left
-            Platform(this.gridX * GRID_SIZE, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2) // right
+            Platform(-this.gridWall, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // left
+            Platform(this.gridX * GRID_SIZE, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // right
 
             for (let i = 0; i < this.gridX; i++) {
                 for (let j = 0; j < this.gridY; j++) {
@@ -329,7 +329,7 @@ class Pyre {
                                 this.player.upgrades[upgrade] = true
                             })
                             break
-                        case 'g': Goal(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+                        case 'g': Goal(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, 'door')
                             break
                         case '#': Platform(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
                             break
@@ -378,6 +378,20 @@ class Pyre {
             
         }
     }
+    
+    static SpriteManager = class {
+        constructor() {
+            this.sprites = {}
+        }
+        loadSprite(src,w = 64, h = 64) {
+            if (this.sprites[src] === undefined) {
+                let sprite = new Image(w, h)
+                sprite.src = 'game/sprites/' + src + '.png'
+                this.sprites[src] = sprite
+            }            
+        }
+    }
+
 
     static GameLoop = class {
         constructor() {

@@ -14,6 +14,10 @@ Obj = function (x, y, w=10, h=10) {
         onCollision: null,
         facing: null,
         destroy: false,
+        loadImage: function (image) {
+            this.image = image
+            Sprites.loadSprite(this.image)
+        },
         center: function () {
             return new Pyre.Vector(this.pos.x + this.size.x / 2, this.pos.y + this.size.y / 2)
         },

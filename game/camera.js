@@ -68,7 +68,11 @@ Camera = function () {
                 ctx.translate(center.x, center.y) // center offset
                 ctx.translate(-this.pos.x, -this.pos.y) // tracking offset
 
-                if (target.line) {
+                if (target.image) {
+                    // ctx.translate(target.pivot.x, target.pivot.y)
+                    ctx.rotate(target.pivot.r)
+                    ctx.drawImage(Sprites.sprites[target.image], -target.pivot.x, -target.pivot.y, target.w, target.h)
+                } else if (target.line) {
                     // line
                     ctx.strokeStyle = target.color;
                     ctx.beginPath()
@@ -138,14 +142,15 @@ DrawLine = function (x1, y1, x2, y2, color = 'white') {
     }
 }
 
-Draw = function (x,y,w,h,color = 'white', pivot = Pivot()) {
+Draw = function (x,y,w,h,color = 'white', pivot = Pivot(), image = null) {
     return {
         x: x,
         y: y,
         w: w,
         h: h,
         color: color,
-        pivot: pivot
+        pivot: pivot,
+        image: image
     }
 }
 DrawObjVec = function (pos, size, color, pivot = Pivot()) {
@@ -165,11 +170,12 @@ DrawObj = function (obj, pivot = Pivot()) {
         w: obj.size.x,
         h: obj.size.y,
         color: obj.color,
-        pivot: pivot
+        pivot: pivot,
+        image: obj.image
     }
 }
 
-DrawText = function (x, y, text, styles = '', align = 'left', font = 'bold 28px Fira Mono', pivot = Pivot()) {
+DrawText = function (x, y, text, styles = 'black', align = 'left', font = 'bold 28px Fira Mono', pivot = Pivot()) {
     return {
         x: x,
         y: y,

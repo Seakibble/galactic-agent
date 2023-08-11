@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.14.1', log: 'Added new level 1' },
     { version: 'v0.14.0', log: 'Added sprites, Pyre.SpriteManager' },
     { version: 'v0.13.6', log: "Excel-edited CSVs break, apparently" },
     { version: 'v0.13.5', log: "Cleaned up Pyre Audio loadBulletTime" },

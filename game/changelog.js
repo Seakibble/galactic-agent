@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.14.6', log: 'Replaced coins with orbs, bespoke cursor' },
     { version: 'v0.14.5', log: 'Glass panes now break in groups' },
     { version: 'v0.14.4', log: 'Coins now completely fly to you' },
     { version: 'v0.14.3', log: 'Added bullet sprite, low-latency reticule'},

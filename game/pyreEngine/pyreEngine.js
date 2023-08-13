@@ -349,7 +349,7 @@ class Pyre {
                             break
                         case 'G': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'gun')
                             break
-                        case 'c': tile = Coin(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
+                        case 'c': tile = Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
                             break
                     }
                     this.map[j][i] = tile
@@ -391,8 +391,8 @@ class Pyre {
 
             this.timer = 0
             this.winStreak = 0
-            this.coinsBanked = 0
-            this.coinsThisLevel = 0
+            this.orbsBanked = 0
+            this.orbsThisLevel = 0
             
         }
     }

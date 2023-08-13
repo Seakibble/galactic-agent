@@ -1,7 +1,8 @@
-Coin = function (x, y) {
+Orb = function (x, y) {
     let obj = Obj(x, y)
-    obj.size.x = 16
-    obj.size.y = 16
+    obj.size.x = 32
+    obj.size.y = 32
+    obj.name = 'orb'
 
     obj.collision = true
     obj.shootable = false
@@ -13,15 +14,16 @@ Coin = function (x, y) {
 
     obj.onCollision = function (other) {
         if (other.player) {
-            Data.coinsThisLevel++
-            Sound.playSFX('coin')
+            Data.orbsThisLevel++
+            Sound.playSFX(this.name)
             this.destroy = true
         }
     }
     obj.draw = function () {
         if (this.phase == null) this.phase = Math.random() * 2 * Math.PI
         let pulse = Pulse(400, 5, this.phase)
-        let pivot = Pivot(this.size.x / 2, this.size.y / 2, Math.PI / 4 + pulse)
+        let pivot = Pivot(this.size.x / 2, this.size.y / 2)
+        // let pivot = Pivot(this.size.x / 2, this.size.y / 2, Math.PI / 4 + pulse)
         camera.Render(Draw(this.pos.x, this.pos.y + pulse, this.size.x, this.size.y, this.color, pivot, this.image))
     }
     obj.update = function () {
@@ -37,8 +39,8 @@ Coin = function (x, y) {
         this.pos.add(this.vel.clone().multiply(Game.timeScale))
     }
 
-    obj.loadImage('coin', obj.size.x, obj.size.y)
+    obj.loadImage(obj.name, obj.size.x, obj.size.y)
     Data.objects.push(obj)
-    Sound.loadSFX('coin')
+    Sound.loadSFX(obj.name)
     return obj
 }

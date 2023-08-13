@@ -16,8 +16,23 @@ body {
     --tertiarty: #ccffff;
     --quick: 0.15s;
 }
-canvas {
-    
+
+h1 span {
+    display: none;
+}
+
+.title {
+    width: 856px;
+
+    image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;                 /* Awesome future-browsers       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+}
+
+canvas {    
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
     image-rendering: -webkit-optimize-contrast; /* Safari                        */
@@ -35,7 +50,8 @@ canvas {
     place-content: center;
     background: hsl(0,0%,0%,0.8);
     z-index: 5;
-    cursor: default;
+    cursor: url('/pointer.png'), auto;
+
 }
 
 .menu {
@@ -151,9 +167,11 @@ p {
 
 a.button {
     text-decoration: none;
+    cursor: url('/pointerHover.png'), auto;
 }
 
 button, a > button {
+    cursor: url('/pointerHover.png'), auto;
     background: var(--primary);
     color: var(--secondary);
 
@@ -176,7 +194,7 @@ button, a > button {
 button:hover, button:focus, button.selected {
     color: var(--primary);
     background: var(--secondary);
-    cursor: pointer;
+    cursor: url('/pointerHover.png'), auto;
 }
 
 button .flare {

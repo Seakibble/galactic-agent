@@ -115,7 +115,7 @@ let game = {
         Data.objects = []
         this.over = false
         Data.timer = 0
-        Data.coinsThisLevel = 0
+        Data.orbsThisLevel = 0
         // Terrain
         // let x = (GRID_SCALE_X * Data.winStreak % LEVELS_PER_WORLD + GRID_MINIMUM_X)
         // let y = (GRID_SCALE_Y * Data.winStreak % LEVELS_PER_WORLD + GRID_MINIMUM_Y)
@@ -250,7 +250,7 @@ let game = {
         this.over = true
         this.pause()
         Data.winStreak++
-        Data.coinsBanked += Data.coinsThisLevel
+        Data.orbsBanked += Data.orbsThisLevel
         this.screen.getStats()
         this.screen.set('win')
     },
@@ -258,7 +258,7 @@ let game = {
         this.over = true
         this.pause()
         Data.winStreak = 0
-        Data.coinsBanked = 0
+        Data.orbsBanked = 0
         this.screen.set('dead')
     }
 }

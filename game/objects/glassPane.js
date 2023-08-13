@@ -2,6 +2,7 @@ GlassPane = function (x, y, w, h) {
     let obj = Obj(x, y)
     obj.size.x = w
     obj.size.y = h
+    obj.glassPane = true
 
     obj.color = "rgba(200,200,255,0.3)"
     obj.brokenColor = "rgba(50,50,100,0.3)"
@@ -18,13 +19,21 @@ GlassPane = function (x, y, w, h) {
         }
     }
 
-    obj.break = function () {
-        this.broken = true
-        // audio.glassBreak.play()
-        Sound.playSFX('glassBreak')
-        obj.collision = false
-        obj.obstructs = false
-        this.color = this.brokenColor
+    obj.break = function (silent = false) {
+        if (!this.broken) {
+            this.broken = true
+            // audio.glassBreak.play()
+            if (!silent) Sound.playSFX('glassBreak')
+            obj.collision = false
+            obj.obstructs = false
+            this.color = this.brokenColor
+
+            if (this.adjacent) {
+                this.adjacent.forEach(pane => {
+                    pane.break(true)
+                })
+            }
+        }
     }
     
     Sound.loadSFX('glassBreak')

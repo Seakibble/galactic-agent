@@ -318,6 +318,7 @@ class Pyre {
 
             for (let i = 0; i < this.gridX; i++) {
                 for (let j = 0; j < this.gridY; j++) {
+                    let tile = null
                     switch (this.map[j][i]) {
                         case 'p':
                             if (!this.player) this.player = Player(i * GRID_SIZE + 10, j * GRID_SIZE)
@@ -332,38 +333,52 @@ class Pyre {
                                 this.player.upgrades[upgrade] = true
                             })
                             break
-                        case 'g': Goal(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, 'door')
+                        case 'g': tile = Goal(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, 'door')
                             break
-                        case '#': Platform(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+                        case '#': tile = Platform(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
                             break
-                        case '|': GlassPane(i * GRID_SIZE + (GRID_SIZE-10)/2, j * GRID_SIZE, 10, GRID_SIZE)
+                        case '|': tile = GlassPane(i * GRID_SIZE + (GRID_SIZE-10)/2, j * GRID_SIZE, 10, GRID_SIZE)
                             break
-                        case '-': GlassPane(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, 10)
+                        case '-': tile = GlassPane(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, 10)
                             break
-                        case '^': DamageBox(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+                        case '^': tile = DamageBox(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
                             break
-                        case 'D': Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'dash')
+                        case 'D': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'dash')
                             break
-                        case 'W': Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'wallClimb')
+                        case 'W': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'wallClimb')
                             break
-                        case 'G': Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'gun')
+                        case 'G': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'gun')
                             break
-                        case 'c': Coin(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
+                        case 'c': tile = Coin(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
                             break
                     }
+                    this.map[j][i] = tile
                 }
             }
 
-            // let coins = 20
-            // while (coins > 0) {
-            //     let x = Math.floor(Math.random() * this.map[0].length)
-            //     let y = Math.floor(Math.random() * this.map.length)
-            //     if (this.map[y][x] === '') {
-            //         Coin(x * GRID_SIZE + GRID_SIZE / 2, y * GRID_SIZE + GRID_SIZE / 2)
-            //         this.map[y][x] = 'c'
-            //         coins--
-            //     }
-            // }
+
+            // Link glass panes
+            for (let i = 0; i < this.gridX; i++) {
+                for (let j = 0; j < this.gridY; j++) {
+                    let tile = this.map[j][i]
+                    if (tile && tile.glassPane) {
+                        tile.adjacent = []
+                        if (this.map[j] && this.map[j][i-1] && this.map[j][i-1].glassPane) {
+                            tile.adjacent.push(this.map[j][i-1])
+                        }
+                        if (this.map[j] && this.map[j][i + 1] && this.map[j][i + 1].glassPane) {
+                            tile.adjacent.push(this.map[j][i + 1])
+                        }
+                        if (this.map[j-1] && this.map[j-1][i] && this.map[j-1][i].glassPane) {
+                            tile.adjacent.push(this.map[j-1][i])
+                        }
+                        if (this.map[j + 1] && this.map[j + 1][i] && this.map[j+1][i].glassPane) {
+                            tile.adjacent.push(this.map[j + 1][i])
+                        }
+                    }
+                }
+            }
+            
 
         }
     }

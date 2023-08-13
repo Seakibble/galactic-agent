@@ -50,7 +50,7 @@ canvas {
     place-content: center;
     background: hsl(0,0%,0%,0.8);
     z-index: 5;
-    cursor: url('pointer.png'), auto;
+    cursor: url('../pointer.png'), auto;
 
 }
 
@@ -167,11 +167,11 @@ p {
 
 a.button {
     text-decoration: none;
-    cursor: url('pointerHover.png'), auto;
+    cursor: url('../pointerHover.png'), auto;
 }
 
 button, a > button {
-    cursor: url('pointerHover.png'), auto;
+    cursor: url('../pointerHover.png'), auto;
     background: var(--primary);
     color: var(--secondary);
 
@@ -194,7 +194,7 @@ button, a > button {
 button:hover, button:focus, button.selected {
     color: var(--primary);
     background: var(--secondary);
-    cursor: url('pointerHover.png'), auto;
+    cursor: url('../pointerHover.png'), auto;
 }
 
 button .flare {

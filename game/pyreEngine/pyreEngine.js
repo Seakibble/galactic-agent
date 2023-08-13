@@ -51,6 +51,9 @@ class Pyre {
             if (currentMagnitude !== 0) return this.multiply(magnitude / currentMagnitude)
             else return this
         }
+        angle() {
+            return Math.atan2(this.y,this.x)
+        }
         clone() {
             return new Pyre.Vector(this.x, this.y)
         }

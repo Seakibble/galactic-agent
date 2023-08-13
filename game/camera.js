@@ -72,7 +72,9 @@ Camera = function () {
                 if (target.image) {
                     // ctx.translate(target.pivot.x, target.pivot.y)
                     ctx.rotate(target.pivot.r)
-                    ctx.drawImage(Sprites.sprites[target.image], -target.pivot.x / zoom, -target.pivot.y / zoom, target.w / zoom, target.h / zoom)
+                    if (Sprites.sprites[target.image]) {
+                        ctx.drawImage(Sprites.sprites[target.image], -target.pivot.x / zoom, -target.pivot.y / zoom, target.w / zoom, target.h / zoom)
+                    }
                 } else if (target.line) {
                     // line
                     ctx.strokeStyle = target.color;
@@ -82,15 +84,14 @@ Camera = function () {
                     
                     ctx.stroke()
                 } else {
-                    // Rect or text
                     ctx.translate(target.pivot.x / zoom, target.pivot.y / zoom)
                     ctx.rotate(target.pivot.r)
 
                     if (target.text !== undefined) {
-                        ctx.font = target.font;
-                        ctx.fillStyle = target.styles;
-                        ctx.textAlign = target.align;
-                        ctx.fillText(target.text, -target.pivot.x / zoom, -target.pivot.y / zoom);
+                        ctx.font = target.font
+                        ctx.fillStyle = target.styles
+                        ctx.textAlign = target.align
+                        ctx.fillText(target.text, -target.pivot.x / zoom, -target.pivot.y / zoom)
                     } else {
                         ctx.fillStyle = target.color
                         ctx.fillRect(-target.pivot.x / zoom, -target.pivot.y / zoom, target.w / zoom, target.h / zoom)
@@ -125,6 +126,7 @@ function getWorldSpace(target) {
     return dest
 }
 
+// Position (x,y), Rotation in radians
 Pivot = function (x = 0, y = 0, r = 0) {
     return {
         x: x,
@@ -152,6 +154,14 @@ Draw = function (x,y,w,h,color = 'white', pivot = Pivot(), image = null) {
         color: color,
         pivot: pivot,
         image: image
+    }
+}
+DrawCircle = function (x, y, r, color = 'white') {
+    return {
+        x: x,
+        y: y,
+        r: r,
+        color: color
     }
 }
 DrawObjVec = function (pos, size, color, pivot = Pivot()) {

@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.14.3', log: 'Added bullet sprite, low-latency reticule'},
     { version: 'v0.14.2', log: 'Fixed sticky jump, zooming now supported' },
     { version: 'v0.14.1', log: 'Added new level 1' },
     { version: 'v0.14.0', log: 'Added sprites, Pyre.SpriteManager' },

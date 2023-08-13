@@ -61,24 +61,10 @@ let game = {
 
         // Reticule
         let cursor = getWorldSpace(input.mouse)
-        let retThickness = 2
-        let retLength = 12
-        let retOffset = 8
+        // camera.Render(Draw(cursor.x-32, cursor.y-32, 64,64, 'white', Pivot(), 'reticule'), 1)
         
-        camera.Render(Draw(cursor.x + retOffset - 1, cursor.y - 1, retLength + 2, retThickness + 2, 'white'), 2)
-        camera.Render(Draw(cursor.x + retOffset, cursor.y, retLength, retThickness, 'black'), 1)
-
-        camera.Render(Draw(cursor.x - retOffset - retLength - 1, cursor.y -1, retLength +2, retThickness +2, 'white'), 2)
-        camera.Render(Draw(cursor.x - retOffset - retLength, cursor.y, retLength, retThickness, 'black'), 1)
-        
-        camera.Render(Draw(cursor.x-1, cursor.y + retOffset-1, retThickness+2, retLength+2, 'white'), 2)
-        camera.Render(Draw(cursor.x, cursor.y + retOffset, retThickness, retLength, 'black'), 1)
-
-        camera.Render(Draw(cursor.x-1, cursor.y - retOffset - retLength-1, retThickness+2, retLength+2, 'white'), 2)
-        camera.Render(Draw(cursor.x, cursor.y - retOffset - retLength, retThickness, retLength, 'black'), 1)
-
         if (Data.debug) {
-            camera.Render(Draw(0,0,10,10,'red'))
+            camera.Render(Draw(0,0,10,10,'red'),1)
         }
         camera.DrawToScreen()
 
@@ -119,6 +105,7 @@ let game = {
         // loadAudio()
 
         window.addEventListener('resize', () => game.resize())
+        Sprites.loadSprite('reticule')
         this.start()
     },
     start: function () {

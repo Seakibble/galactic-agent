@@ -259,7 +259,7 @@ Player = function (x, y) {
             camera.Render(DrawText(t.pos.x, t.pos.y-30, text))
         }
 
-        if (game.debug) {
+        if (Data.debug) {
             camera.RenderObj(this.colBoxes.Up())
             camera.RenderObj(this.colBoxes.Down())
             camera.RenderObj(this.colBoxes.Left())

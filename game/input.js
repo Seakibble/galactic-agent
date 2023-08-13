@@ -84,7 +84,7 @@ Input = function () {
                     velocity.x, velocity.y)
             }
 
-            if (Data.player.upgrades.gun && this.aiming) {
+            if (Data.player.upgrades.bulletTime && this.aiming) {
                 Game.setTimeScale(BULLET_TIME_FACTOR)
                 Sound.setBulletTimeVolume(1 - Game.timeScale)
             } else {

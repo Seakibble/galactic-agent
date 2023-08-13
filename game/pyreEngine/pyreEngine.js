@@ -329,6 +329,7 @@ class Pyre {
                                     case 'D': upgrade = 'dash'; break
                                     case 'W': upgrade = 'wallClimb'; break
                                     case 'G': upgrade = 'gun'; break
+                                    case 'B': upgrade = 'bulletTime'; break
                                 }
                                 this.player.upgrades[upgrade] = true
                             })

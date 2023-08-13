@@ -21,7 +21,8 @@ Player = function (x, y) {
     obj.upgrades = {
         wallClimb: false,
         dash: false,
-        gun: false,
+        gun: true,
+        bulletTime: false
     }
 
     obj.damage = function (dam) {

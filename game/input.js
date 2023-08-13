@@ -8,6 +8,7 @@ Input = function () {
         enter: false,
         jump: false,
         jumpLock: false,
+        stickyDelay: 0,
         dash: false,
         dashLock: false,
         shoot: false,
@@ -51,12 +52,14 @@ Input = function () {
 
             // Left and Right
             if (Data.player.dashCooldown <= 0) {
-                if (this.left && Data.player.vel.x > -MAX_SPEED) {
-                    if (Data.player.vel.x > 0) Data.player.vel.x *= drag
+                if (this.left && Data.player.vel.x > -MAX_SPEED && this.stickyDelay < 0) {
+                    if (Data.player.vel.x > 0) Data.player.vel.x = 0
+                    // if (Data.player.vel.x > 0) Data.player.vel.x *= drag
                     if (!Data.player.sticking) Data.player.facing = 'left'
                     Data.player.vel.add(new Pyre.Vector(-ACCELERATION, 0))
-                } else if (this.right && Data.player.vel.x < MAX_SPEED) {
-                    if (Data.player.vel.x < 0) Data.player.vel.x *= drag
+                } else if (this.right && Data.player.vel.x < MAX_SPEED && this.stickyDelay < 0) {
+                    if (Data.player.vel.x < 0) Data.player.vel.x = 0
+                    // if (Data.player.vel.x < 0) Data.player.vel.x *= drag
                     Data.player.vel.add(new Pyre.Vector(ACCELERATION, 0))
                     if (!Data.player.sticking) Data.player.facing = 'right'
                 } else if (!this.left && !this.right) {
@@ -97,10 +100,13 @@ Input = function () {
             }
 
             // Jumping
+            this.stickyDelay--
             if (this.jump && (Data.player.grounded || Data.player.jumpLate < JUMP_LATE_TOLERANCE) && this.jumpLock == false) {
-                if (Data.player.sticking && (!Data.player.grounded || (Data.player.sticking && (this.left || this.right)))) {
+                //
+                if (Data.player.sticking && (!Data.player.grounded || (Data.player.grounded && (this.left || this.right) ))) {
                     if (Data.player.facing == 'left') Data.player.vel.x -= JUMP_POWER * WALL_JUMP_POWER
                     else Data.player.vel.x += JUMP_POWER * WALL_JUMP_POWER
+                    this.stickyDelay = STICKY_DELAY
                 }
                 Data.player.grounded = false
                 Data.player.vel.y = -JUMP_POWER

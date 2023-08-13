@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.14.2', log: 'Fixed sticky jump, zooming now supported' },
     { version: 'v0.14.1', log: 'Added new level 1' },
     { version: 'v0.14.0', log: 'Added sprites, Pyre.SpriteManager' },
     { version: 'v0.13.6', log: "Excel-edited CSVs break, apparently" },

@@ -61,38 +61,39 @@ Camera = function () {
             this.renderList = []
         },
         DrawToScreenArray: function (list) {
+            let zoom = game.zoom
             for (let i = 0; i < list.length; i++) {
                 let target = list[i]
 
-                ctx.translate(target.x, target.y) // target offset
+                ctx.translate(target.x / zoom, target.y / zoom) // target offset
                 ctx.translate(center.x, center.y) // center offset
-                ctx.translate(-this.pos.x, -this.pos.y) // tracking offset
+                ctx.translate(-this.pos.x / zoom, -this.pos.y / zoom) // tracking offset
 
                 if (target.image) {
                     // ctx.translate(target.pivot.x, target.pivot.y)
                     ctx.rotate(target.pivot.r)
-                    ctx.drawImage(Sprites.sprites[target.image], -target.pivot.x, -target.pivot.y, target.w, target.h)
+                    ctx.drawImage(Sprites.sprites[target.image], -target.pivot.x / zoom, -target.pivot.y / zoom, target.w / zoom, target.h / zoom)
                 } else if (target.line) {
                     // line
                     ctx.strokeStyle = target.color;
                     ctx.beginPath()
-                    ctx.moveTo(target.x1, target.y1)
-                    ctx.lineTo(target.x2, target.y2)
+                    ctx.moveTo(target.x1 / zoom, target.y1 / zoom)
+                    ctx.lineTo(target.x2 / zoom, target.y2 / zoom)
                     
                     ctx.stroke()
                 } else {
                     // Rect or text
-                    ctx.translate(target.pivot.x, target.pivot.y)
+                    ctx.translate(target.pivot.x / zoom, target.pivot.y / zoom)
                     ctx.rotate(target.pivot.r)
 
                     if (target.text !== undefined) {
                         ctx.font = target.font;
                         ctx.fillStyle = target.styles;
                         ctx.textAlign = target.align;
-                        ctx.fillText(target.text, -target.pivot.x, -target.pivot.y);
+                        ctx.fillText(target.text, -target.pivot.x / zoom, -target.pivot.y / zoom);
                     } else {
                         ctx.fillStyle = target.color
-                        ctx.fillRect(-target.pivot.x, -target.pivot.y, target.w, target.h)
+                        ctx.fillRect(-target.pivot.x / zoom, -target.pivot.y / zoom, target.w / zoom, target.h / zoom)
                     }
                 }
                 ctx.resetTransform()

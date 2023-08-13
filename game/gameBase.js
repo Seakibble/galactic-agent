@@ -50,7 +50,7 @@ let game = {
     },
     draw: function () {
         // ctx.fillStyle = this.levelColor
-        ctx.fillStyle = '#a44'
+        ctx.fillStyle = '#555'
         ctx.fillRect(0, 0, $canvas.width, $canvas.height)
         // let style = "hsl(0,0%, " + pulse + "%)";
         // ctx.textAlign = "center";
@@ -90,8 +90,8 @@ let game = {
             console.log('Too small!', zoom)
             return
         }
-        CV.x = $container.offsetWidth / this.zoom
-        CV.y = $container.offsetHeight / this.zoom
+        CV.x = $container.offsetWidth // / this.zoom
+        CV.y = $container.offsetHeight // / this.zoom
         $canvas.width = CV.x
         $canvas.height = CV.y
         center = new Pyre.Vector($canvas.width / 2, $canvas.height / 2);

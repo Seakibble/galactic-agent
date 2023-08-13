@@ -9,7 +9,7 @@ body {
     /* font-family: 'Red Hat Display', sans-serif; */
     font-size: 30px;
     box-sizing: border-box;
-    cursor: url('game/sprites/reticule.png') 32 32, auto;
+    cursor: url('../game/sprites/reticule.png') 32 32, auto;
 
     --primary: black;
     --secondary: white;

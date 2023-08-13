@@ -71,7 +71,7 @@ Screens = function () {
             else grade = 'S'
 
             output += `<p>Mission time: <span class='emphasis'>${time[0]}:${time[1]}</span></p>`
-            output += `<p>Orbss: <span class='emphasis'>${(Data.orbsBanked)} +(${Data.orbsThisLevel}/20)</span></p>`
+            output += `<p>Orbs: <span class='emphasis'>${(Data.orbsBanked)} +(${Data.orbsThisLevel}/20)</span></p>`
             output += `<p>Difficulty: <span class='emphasis'>${Data.winStreak}</span></p>`
             output += `<span class='emphasis grade'>${grade}</span>`
 

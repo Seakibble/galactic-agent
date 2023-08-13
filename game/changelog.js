@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.14.11', log: 'Fixed murderBlocks' },
     { version: 'v0.14.10', log: 'Fixed reticule... I hope' },
     { version: 'v0.14.9', log: 'Fixed cursors... again' },
     { version: 'v0.14.8', log: 'Fixed cursors for live site' },

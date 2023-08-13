@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.14.8', log: 'Fixed cursors for live site' },
     { version: 'v0.14.7', log: 'You start with gun, bulletTime upgrade' },
     { version: 'v0.14.6', log: 'Replaced coins with orbs, bespoke cursor' },
     { version: 'v0.14.5', log: 'Glass panes now break in groups' },

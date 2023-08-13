@@ -8,6 +8,7 @@ Coin = function (x, y) {
     obj.color = "lightyellow"
     obj.collectable = true
     obj.collectRange = 100
+    obj.following = false
     obj.phase = null
 
     obj.onCollision = function (other) {
@@ -25,11 +26,14 @@ Coin = function (x, y) {
     }
     obj.update = function () {
         if (this.pos.distance(Data.player.center()) < this.collectRange) {
-            let toPlayer = Pyre.Vector.lerpDifference(this.pos, Data.player.center(), 0.03)
-            this.vel.add(toPlayer.multiply(Game.timeScale))
-        } else {
-            this.vel.multiply(0.5)
+            this.following = true    
         }
+        if (this.following) {
+            let toPlayer = Pyre.Vector.lerpDifference(this.pos, Data.player.center(), 0.02)
+            this.vel.add(toPlayer.multiply(Game.timeScale))
+        }
+        this.vel.multiply(0.95)
+        
         this.pos.add(this.vel.clone().multiply(Game.timeScale))
     }
 

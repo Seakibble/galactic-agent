@@ -157,6 +157,7 @@ Player = function (x, y) {
 
         this.dashCooldown--
         if (this.dashCooldown <= DASH_RECHARGE) this.dashed = false
+        if (this.dashCooldown < 0) Sound.sfx['jetpack'].stop()
     }
     obj.checkInteract = function () {
         let targets = []
@@ -269,6 +270,7 @@ Player = function (x, y) {
         
     }
     Sound.loadSFXArray(['jump', 'walk', 'land', 'landHeavy', 'shoot'])
+    Sound.loadSFX('jetpack', 'jetpack', true)
     Sound.loadBulletTime('bullet-time')
     
     Data.objects.push(obj)

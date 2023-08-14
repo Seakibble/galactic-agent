@@ -239,11 +239,12 @@ class Pyre {
                 this.loadSFX(sfx)
             })
         }
-        loadSFX(src, name = src) {
+        loadSFX(src, name = src, loop = false) {
             if (this.sfx[name]) return
             this.sfx[name] = new Howl({
                 src: ['game/audio/sfx/' + src + '.mp3'],
                 volume: this._calculateVolume('sfx'),
+                loop: loop
             })
         }
         _calculateVolume(type) {
@@ -350,7 +351,10 @@ class Pyre {
                             break
                         case 'G': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'gun')
                             break
-                        case 'c': tile = Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
+                        case 'H': tile = HoverBot(i * GRID_SIZE, j * GRID_SIZE)
+                            break
+                        case 'c': // Deprecated
+                        case 'o': tile = Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
                             break
                     }
                     this.map[j][i] = tile

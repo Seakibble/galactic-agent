@@ -137,6 +137,7 @@ Input = function () {
                 Data.player.dashCooldown = DASH_DURATION
                 Data.player.vel.y = 0
                 Data.player.vel.x = DASH_POWER * Data.player.Facing()
+                Sound.playSFX('jetpack')
             }
             this.dash = false
         },

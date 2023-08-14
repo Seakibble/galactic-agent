@@ -67,6 +67,9 @@ Obj = function (x, y, w=10, h=10) {
             if (this.facing == 'left') return -1
             else if (this.facing == 'right') return 1
             else return 0
+        },
+        applyForce: function (force) {
+            this.vel.add(force)
         }
     }
 }

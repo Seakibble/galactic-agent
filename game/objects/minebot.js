@@ -5,17 +5,21 @@ MineBot = function (x, y) {
     obj.name = 'minebot'
 
     obj.collision = true
-    obj.obstructs = true
+    // obj.obstructs = true
     obj.color = "purple"
     obj.phase = null
     obj.sightRadius = 350
     obj.following = false
     obj.maxSpeed = 15
     obj.moves = true
+    obj.impactForce = 20
 
     obj.onCollision = function (other) {
         if (other.player) {
             other.damage()
+            let force = other.pos.difference(this.pos)
+            force.normalize(this.impactForce)
+            other.applyForce(force)
             this.destroy = true
         } else if (other.obstructs) {
             this.destroy = true

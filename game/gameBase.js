@@ -59,13 +59,11 @@ let game = {
             Data.objects[i].draw()
         }
 
-        // Reticule
-        let cursor = getWorldSpace(input.mouse)
-        // camera.Render(Draw(cursor.x-32, cursor.y-32, 64,64, 'white', Pivot(), 'reticule'), 1)
-        
         if (Data.debug) {
             camera.Render(Draw(0,0,10,10,'red'),1)
         }
+
+
         camera.DrawToScreen()
 
         let time = getTime(Data.timer)
@@ -131,7 +129,7 @@ let game = {
 
                 // this.startAnimating()
                 // this.initialized = true
-                this.pause()
+                this.pause(false)
                 Game.start()
             })
         
@@ -190,7 +188,9 @@ let game = {
         this.then = Date.now()
         this.tick()
     },
-    pause: function () {
+    pause: function (setPaused = null) {
+        if (setPaused !== null) this.paused = !setPaused
+            
         if (!this.over) {
             this.paused = !this.paused
             if (this.paused) this.screen.set('pause')
@@ -209,7 +209,8 @@ let game = {
     },
     dead: function () {
         this.over = true
-        this.pause()
+        Data.player.destroy = true
+        // this.pause()
         Data.winStreak = 0
         Data.orbsBanked = 0
         this.screen.set('dead')

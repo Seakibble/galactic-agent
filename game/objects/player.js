@@ -11,7 +11,8 @@ Player = function (x, y) {
     obj.aimingAngle = 0
     obj.reticulePos = new Pyre.Vector()
 
-    obj.health = 3
+    obj.healthMax = 5
+    obj.health = 5
 
     obj.interactTarget = null
 
@@ -25,11 +26,17 @@ Player = function (x, y) {
         bulletTime: false
     }
 
-    obj.damage = function (dam) {
-        if (this.health) {
-            this.health -= dam
-            if (this.health <= 0) game.dead()
+    obj.displayHealth = function() {
+        $health.innerHTML = ''
+        for (let i = 1; i <= this.healthMax; i++) {
+            $health.innerHTML += `<div class='hitPoint ${this.health < i ? "empty" : ""}'><div></div></div>`
         }
+    }
+
+    obj.damage = function (dam = 1) {
+        this.health -= dam
+        this.displayHealth()
+        if (this.health <= 0) game.dead()
     }
 
     obj.colBoxes = {
@@ -282,6 +289,7 @@ Player = function (x, y) {
     Sound.loadSFX('jetpack', 'jetpack', true)
     Sound.loadBulletTime('bullet-time')
     
+    obj.displayHealth()
     Data.objects.push(obj)
     Data.player = obj
     return obj

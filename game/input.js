@@ -39,6 +39,8 @@ Input = function () {
             }
         },
         gameInput: function () {
+            if (game.over) return
+
             // game input
             let drag = FLOOR_DRAG
             if (!Data.player.grounded) drag = AIR_DRAG
@@ -260,6 +262,7 @@ function setInput(key, keyDown) {
             if (keyDown) input.enter = true
             break
         case 'Left Click':
+            if (game.paused || game.over) break
             if (keyDown) {
                 input.aiming = true
             } else {
@@ -268,6 +271,7 @@ function setInput(key, keyDown) {
             }
             break
         case 'Right Click':
+            if (game.paused || game.over) break
             if (keyDown) {
                 input.aiming = true
             } else {

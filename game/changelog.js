@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.15.5', log: 'Health now exists' },
     { version: 'v0.15.4', log: 'Minebots now have activation cues' },
     { version: 'v0.15.3', log: 'Collision effects occur after checks' },
     { version: 'v0.15.2', log: 'Two-frame animated explosions' },

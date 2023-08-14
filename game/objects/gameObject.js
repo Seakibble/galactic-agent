@@ -56,15 +56,7 @@ Obj = function (x, y, w=10, h=10) {
                 if (dist > this.size.x && dist > this.size.y && dist > that.size.x && dist > that.size.y) continue
 
                 if (Collides(this, that) || Collides(that, this)) {
-                    if (this.onCollision !== null) this.onCollision(that)
-
-                    if (this.moves && this.obstructs && that.obstructs) {
-                        this.pos.y = that.pos.y - this.size.y
-                        this.vel.y = 0
-                        if (this.moves) {
-                            this.grounded = true
-                        }
-                    }
+                    if (this.onCollision !== null) Data.collisions.push([this, that])
                 }
             }
         },

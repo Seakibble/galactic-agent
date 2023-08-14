@@ -8,9 +8,9 @@ HoverBot = function (x, y) {
     obj.obstructs = true
     obj.color = "purple"
     obj.phase = null
-    obj.sightRadius = 450
+    obj.sightRadius = 350
     obj.following = false
-    obj.maxSpeed = 4
+    obj.maxSpeed = 6
     obj.moves = true
 
     obj.onCollision = function (other) {
@@ -32,21 +32,19 @@ HoverBot = function (x, y) {
     obj.update = function () {
         if (this.phase == null) this.phase = Math.random() * 2 * Math.PI
         let pulse = Pulse(400, 1, this.phase)
-        this.pos.y += pulse
 
         if (this.pos.distance(Data.player.center()) < this.sightRadius) {
             this.following = true    
-        } else {
-            this.following = false
         }
 
         if (this.following) {
-            let toPlayer = Pyre.Vector.lerpDifference(this.pos, Data.player.center(), 0.02)
-            this.vel.add(toPlayer.multiply(0.05))
-            if (this.vel.magnitude > this.maxSpeed)
-            this.vel.normalize(this.maxSpeed)
+            let toPlayer = Pyre.Vector.lerpDifference(this.pos, Data.player.center(), 0.001)
+            this.vel.add(toPlayer)
+            if (this.vel.magnitude() > this.maxSpeed) {
+                this.vel.normalize(this.maxSpeed)
+            }
         } else {
-            this.vel.multiply(0.9)
+            this.pos.y += pulse
         }
         
         this.pos.add(this.vel.clone().multiply(Game.timeScale))

@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.15.3', log: 'Collision effects occur after checks' },
     { version: 'v0.15.2', log: 'Two-frame animated explosions' },
     { version: 'v0.15.1', log: 'Music stays turned off if you refresh' },
     { version: 'v0.15.0', log: 'Enemies, SFX pass for dash, shoot, bullets' },

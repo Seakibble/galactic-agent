@@ -392,6 +392,7 @@ class Pyre {
         constructor() {
             this.player = null
             this.objects = []
+            this.collisions = []
             this.debug = false
 
             this.timer = 0

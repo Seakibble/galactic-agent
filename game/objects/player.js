@@ -193,6 +193,17 @@ Player = function (x, y) {
             return Box(this.pos.x + this.size.x / 2 - 35, this.pos.y + pulse + this.size.y / 2, 40, 8, GEAR_COLOR)
         }
     }
+
+    obj.onCollision = function (that) {
+        if (this.moves && this.obstructs && that.obstructs) {
+            this.pos.y = that.pos.y - this.size.y
+            this.vel.y = 0
+            if (this.moves) {
+                this.grounded = true
+            }
+        }
+    }
+
     obj.draw = function () {
         // Dude
         camera.RenderObj(this, 3)

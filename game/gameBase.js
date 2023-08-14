@@ -114,6 +114,7 @@ let game = {
         this.over = false
         Data.timer = 0
         Data.orbsThisLevel = 0
+        $orbTotal.textContent = Data.orbsThisLevel + Data.orbsBanked
               
         let levelToLoad = Data.winStreak + 1
         if (levelToLoad > 3) levelToLoad = 'win'

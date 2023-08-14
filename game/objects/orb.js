@@ -15,6 +15,7 @@ Orb = function (x, y) {
     obj.onCollision = function (other) {
         if (other.player) {
             Data.orbsThisLevel++
+            $orbTotal.textContent = Data.orbsThisLevel + Data.orbsBanked
             Sound.playSFX(this.name)
             this.destroy = true
         }

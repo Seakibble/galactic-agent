@@ -26,7 +26,7 @@ let $health = document.getElementById('health')
 let $timer = document.getElementById('timer')
 let $levelStart = document.getElementById('levelStart')
 let $objectives = document.getElementById('objectives')
-
+let $orbTotal = document.getElementById('orbTotal')
 
 let $version = document.getElementById('version')
 

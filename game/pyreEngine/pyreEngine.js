@@ -286,7 +286,7 @@ class Pyre {
                         this.upgrades = this.map[3][1].split('')
 
                         
-                        Sound.loadMusic(this.music)
+                        Sound.loadMusic(this.music,false)
                         
                         
                         this.map.forEach(row => {

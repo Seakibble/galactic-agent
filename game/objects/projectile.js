@@ -26,10 +26,12 @@ Projectile = function (x, y, w, h, vx, vy) {
         if (other.shootable) {
             other.damage(this.damage)
             this.destroy = true
+            Sound.playSFX('bulletImpact')
         }
     }
 
     Sprites.loadSprite('bullet')
+    Sound.loadSFX('bulletImpact')
     Data.objects.push(obj)
     return obj
 }

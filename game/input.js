@@ -77,11 +77,7 @@ Input = function () {
                 velocity.multiply(30)
                 let position = Data.player.center().add(velocity.clone())
 
-                Projectile(
-                    position.x,
-                    position.y,
-                    5, 5,
-                    velocity.x, velocity.y)
+                Projectile(position.x,position.y,5, 5,velocity.x, velocity.y)
             }
 
             if (Data.player.upgrades.bulletTime && this.aiming) {

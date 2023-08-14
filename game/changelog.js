@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.15.2', log: 'Two-frame animated explosions' },
     { version: 'v0.15.1', log: 'Music stays turned off if you refresh' },
     { version: 'v0.15.0', log: 'Enemies, SFX pass for dash, shoot, bullets' },
     { version: 'v0.14.12', log: 'Added SFX for bullet impact' },

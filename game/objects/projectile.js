@@ -26,7 +26,8 @@ Projectile = function (x, y, w, h, vx, vy) {
         if (other.shootable) {
             other.damage(this.damage)
             this.destroy = true
-            Sound.playSFX('bulletImpact')
+            
+            ExplosionBullet(this.pos.x - this.size.x, this.pos.y - this.size.y, 32, 32, 0.1)
         }
     }
 

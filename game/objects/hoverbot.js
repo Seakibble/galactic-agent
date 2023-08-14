@@ -17,14 +17,12 @@ HoverBot = function (x, y) {
         if (other.player) {
             other.damage()
             this.destroy = true
-            Sound.playSFX('explosion')
         } else if (other.obstructs) {
             this.destroy = true
-            Sound.playSFX('explosion')
         } else if (other.projectile) {
             this.destroy = true
-            Sound.playSFX('explosion')
         }
+        if (this.destroy) Explosion(this.pos.x, this.pos.y, 64, 64, 0.2)
     }
 
     // obj.draw = function () {

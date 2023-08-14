@@ -210,12 +210,10 @@ Player = function (x, y) {
             if (this.Facing() == 1) pivot = Pivot(4, 4, this.aimingAngle)
             else pivot = Pivot(36, 4, this.aimingAngle + Math.PI)
             
-            camera.Render(DrawLine(
-                this.reticulePos.x, this.reticulePos.y,
-                this.pos.x + this.size.x / 2, this.pos.y + pulse + this.size.y / 2,
-                'red'))
-            
-            
+            // camera.Render(DrawLine(
+            //     this.reticulePos.x, this.reticulePos.y,
+            //     this.pos.x + this.size.x / 2, this.pos.y + pulse + this.size.y / 2,
+            //     'red'))
         }
 
         if (this.upgrades.gun) {

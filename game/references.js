@@ -2,6 +2,8 @@ let $canvas = document.getElementById('canvas')
 let $container = document.getElementById('container')
 let $content = document.getElementById('content')
 
+let $fadeToBlack = document.getElementById('fadeToBlack')
+
 let $pauseScreen = document.getElementById('pauseScreen')
 let $resume = document.getElementById('resume')
 let $options = document.getElementById('options')

@@ -8,7 +8,8 @@ body {
     font-family: 'Press Start 2P', monospace;
 
     /* font-family: 'Red Hat Display', sans-serif; */
-    font-size: 24px;
+    font-size: 28px;
+    
     box-sizing: border-box;
     cursor: url('../game/sprites/reticule.png') 32 32, auto;
 
@@ -146,15 +147,30 @@ h2 {
     min-width: 400px;
 }
 h3 {
-    font-size: 1.2em;
+    font-size: 1em;
     margin-bottom: 0.5em;
     color: var(--primary);
 }
 
 p {
     color: var(--primary);
-    font-size: 0.8em;
+    font-size: 0.85em;
     line-height: 1.5em;
+}
+
+#fadeToBlack {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 1s;
+
+    pointer-events: none;
+}
+#fadeToBlack.active {
+    opacity: 1;
 }
 
 #stats {
@@ -168,7 +184,7 @@ p {
 }
 
 .grade {
-    font-size: 1.5em;
+    font-size: 1.25em;
     line-height: 1.5em;
     display: grid;
     position: absolute;

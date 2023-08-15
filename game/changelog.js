@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.16.6', log: 'Added tasteful fade between screens/levels' },
     { version: 'v0.16.5', log: 'Fixed quit/main menu links' },
     { version: 'v0.16.4', log: 'Re-added murderBlock.png' },
     { version: 'v0.16.3', log: 'Removed murderblock.png' },

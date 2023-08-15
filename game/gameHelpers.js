@@ -80,3 +80,16 @@ function Pulse(frequency = 1000, amplitude = 1, phase = 0) {
 function ChooseRandom(array) {
     return array[Math.floor(Math.random()*array.length)]
 }
+
+function fadeToBlack(on = true, callback) {
+    if (on) $fadeToBlack.classList.add('active')
+    else $fadeToBlack.classList.remove('active')
+    setTimeout(() => {
+        if (callback) {
+            callback()
+            $fadeToBlack.classList.remove('active')
+        } else {
+            $fadeToBlack.classList.remove('active')
+        }
+    }, 1000)
+}

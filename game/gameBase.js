@@ -92,41 +92,44 @@ let game = {
     },    
     init: function () {
         this.resize()
-        this.screen.set('')
         this.screen.init()
         // loadAudio()
 
         window.addEventListener('resize', () => game.resize())
         Sprites.loadSprite('stars', 1920, 1080)
         this.start()
+        
     },
     start: function () {
-        this.world = Math.floor(Data.winStreak / LEVELS_PER_WORLD)+1
-        this.levelColor = 'hsl(' + ((this.world-1) * 55 + 210)%360 + ',35%, 40%)'
-        $levelStart.classList.remove('start')
-        Data.objects = []
-        this.over = false
-        Data.timer = 0
-        Data.orbsThisLevel = 0
-        $orbTotal.textContent = Data.orbsThisLevel + Data.orbsBanked
-              
-        let levelToLoad = Data.winStreak + 1
-        if (levelToLoad > 3) levelToLoad = 'win'
-        Level.loadLevel('level-' + levelToLoad)
-            .then((player) => {
-                Data.player = Level.player
-                camera.Track(Data.player)
-                
-                // $levelStart.innerHTML = 'LEVEL ' + this.world + '-' + ((this.winStreak % LEVELS_PER_WORLD) + 1)
-                $levelStart.innerHTML = Level.name
-                setTimeout(() => { $levelStart.classList.add('start') }, 500)
-                this.displayObjectives()
+        fadeToBlack(true, () => {
+            this.world = Math.floor(Data.winStreak / LEVELS_PER_WORLD) + 1
+            this.levelColor = 'hsl(' + ((this.world - 1) * 55 + 210) % 360 + ',35%, 40%)'
+            $levelStart.classList.remove('start')
+            Data.objects = []
+            this.over = false
+            Data.timer = 0
+            Data.orbsThisLevel = 0
+            $orbTotal.textContent = Data.orbsThisLevel + Data.orbsBanked
 
-                // this.startAnimating()
-                // this.initialized = true
-                this.pause(false)
-                Game.start()
-            })
+            let levelToLoad = Data.winStreak + 1
+            if (levelToLoad > 3) levelToLoad = 'win'
+            Level.loadLevel('level-' + levelToLoad)
+                .then((player) => {
+                    Data.player = Level.player
+                    camera.Track(Data.player)
+
+                    // $levelStart.innerHTML = 'LEVEL ' + this.world + '-' + ((this.winStreak % LEVELS_PER_WORLD) + 1)
+                    $levelStart.innerHTML = Level.name
+                    setTimeout(() => { $levelStart.classList.add('start') }, 500)
+                    this.displayObjectives()
+
+                    // this.startAnimating()
+                    // this.initialized = true
+                    this.pause(false)
+                    Game.start()
+                })
+        })
+        
         
     },
     tick: function () {

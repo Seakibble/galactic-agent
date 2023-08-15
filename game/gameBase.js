@@ -19,13 +19,7 @@ let game = {
     then: null,
     elapsed: null,    
     objectives: [
-        "Get to the OBJECTIVE",
-        "Press ESC to pause",
-        "A/D or arrow keys to move",
-        "Spacebar to jump",
-        "Shift to dash",
-        "LMB to shoot gun",
-        "E to interact"
+        "Get to the EXIT"
     ],
     objectiveTimeouts: [],
     paused: true,
@@ -50,8 +44,9 @@ let game = {
     },
     draw: function () {
         // ctx.fillStyle = this.levelColor
-        ctx.fillStyle = '#555'
-        ctx.fillRect(0, 0, $canvas.width, $canvas.height)
+        // ctx.fillStyle = '#555'
+        // ctx.fillRect(0, 0, $canvas.width, $canvas.height)
+        if (Sprites.sprites['stars']) ctx.drawImage(Sprites.sprites['stars'], 0,0, 1920, 1080)
         // let style = "hsl(0,0%, " + pulse + "%)";
         // ctx.textAlign = "center";
 
@@ -66,8 +61,8 @@ let game = {
 
         camera.DrawToScreen()
 
-        let time = getTime(Data.timer)
-        $timer.innerHTML = `<span>${time[0]}</span>:<span>${time[1]}</span>`
+        // let time = getTime(Data.timer)
+        // $timer.innerHTML = `<span>${time[0]}</span>:<span>${time[1]}</span>`
     },
     resize: function () {
         if ($container.offsetHeight / this.zoom < 1 || $container.offsetWidth / this.zoom < 1) {
@@ -103,7 +98,7 @@ let game = {
         // loadAudio()
 
         window.addEventListener('resize', () => game.resize())
-        Sprites.loadSprite('reticule')
+        Sprites.loadSprite('stars', 1920, 1080)
         this.start()
     },
     start: function () {
@@ -225,6 +220,8 @@ Game.setDrawCallback(game.draw)
 // Initial code when page loads
 redirectToHttps()
 cleanLinks()
+let gameFont = new FontFace('PressStart2P', 'url(PressStart2P-Regular.ttf)')
+gameFont.load().then((font) => document.fonts.add(font))
 $start.addEventListener('click', () => { 
     game.init()
 })

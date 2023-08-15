@@ -274,7 +274,7 @@ Player = function (x, y) {
         if (this.interactTarget) {
             let t = this.interactTarget
             let text = t.interactText ? t.interactText : 'Interact'
-            camera.Render(DrawText(t.pos.x, t.pos.y-30, text))
+            camera.Render(DrawText(t.pos.x + t.size.x / 2, t.pos.y -30, text, 'black', 'center'))
         }
 
         if (Data.debug) {

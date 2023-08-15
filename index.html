@@ -36,13 +36,26 @@
                     <button id="start" autofocus><span class="flare"></span>Initiate Operation</button>
                 </div>
             </div>
-            <div id="pauseScreen" class="menu screen">
-                <h2>GAME PAUSED</h2>
-                <button id="resume"><span class="flare"></span>Resume</button>
-                <button id="options"><span class="flare"></span>Options</button>
-                <button id="restart"><span class="flare"></span>Restart Mission</button>
-                <a href="./index.html" class='button' tabindex="-1"><button><span class="flare"></span>Quit
-                        Game</button></a>
+            <div id="pauseScreen" class="screen">
+                <div class="menu">
+                    <h2>GAME PAUSED</h2>
+                    <button id="resume"><span class="flare"></span>Resume</button>
+                    <button id="options"><span class="flare"></span>Options</button>
+                    <button id="restart"><span class="flare"></span>Restart Mission</button>
+                    <a href="./index.html" class='button' tabindex="-1"><button><span class="flare"></span>Quit Game</button></a>
+                </div>
+                <div class="controls">
+                    <h2>Controls</h2>
+                    <div class="controlsGrid">
+                        <p>A</p><p>Left</p>
+                        <p>D</p><p>Right</p>
+                        <p>E</p><p>Interact</p>
+                        <p>Space</p><p>Jump</p>
+                        <p>Shift</p><p>Dash</p>
+                        <p>LMB</p><p>Shoot</p>
+                        <p>Esc</p><p>Pause</p>
+                    </div>
+                </div>
             </div>
             <div id="optionsScreen" class="menu screen">
                 <h2>OPTIONS</h2>
@@ -68,7 +81,7 @@
             <div id="health">
                 <div class="hitPoint"><div></div></div>
             </div>
-            <div id="orbs"><img src="game/sprites/orb.png"><span id="orbTotal">0</span></div>
+            <div id="orbs"><img src="game/sprites/orb.png"><span id="orbTotal"></span></div>
             <div id="timer" class="box">0:00:00:00</div>
             <div id="objectives"></div>
             <div id="levelStart" class="box">LEVEL 1</div>

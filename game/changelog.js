@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.16.0', log: 'Font now in canvas, background image, various tweaks' },
     { version: 'v0.15.6', log: 'Font and cursor changes, orb total shows' },
     { version: 'v0.15.5', log: 'Health now exists' },
     { version: 'v0.15.4', log: 'Minebots now have activation cues' },

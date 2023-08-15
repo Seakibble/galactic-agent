@@ -10,7 +10,7 @@ document.body.style.setProperty('--tertiary', UI_COLOR_TERTIARY)
 const FPS = 60
 const GRAVITY = new Pyre.Vector(0, 0.5)
 const CAMERA_LAG = 0.08
-const CAMERA_BOUNDARY = 400
+const CAMERA_BOUNDARY = 200
 const TIMESCALE_LERP_FACTOR = 0.05
 
 // Audio

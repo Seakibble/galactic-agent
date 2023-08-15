@@ -91,7 +91,6 @@ let game = {
         setWorkmanMenuText()
     },    
     init: function () {
-        this.loadSettings()
         this.resize()
         this.screen.set('')
         this.screen.init()
@@ -220,8 +219,23 @@ Game.setDrawCallback(game.draw)
 // Initial code when page loads
 redirectToHttps()
 cleanLinks()
+game.loadSettings()
+
 let gameFont = new FontFace('PressStart2P', 'url(PressStart2P-Regular.ttf)')
 gameFont.load().then((font) => document.fonts.add(font))
+
+Sound.loadSFXArray(['btnHover', 'btnClick'])
+
+Sound.loadMusic('06-a-galaxy-to-protect', true)
+if (!Sound.musicEnabled()) Sound.music.stop()
+
+$content.addEventListener('click', (e) => {
+    if (e.target.nodeName === 'BUTTON' || e.target.classList.contains('button')) Sound.playSFX('btnClick')
+})
+$content.addEventListener('mouseover', (e) => {
+    if (e.target.nodeName === 'BUTTON' || e.target.classList.contains('button')) Sound.playSFX('btnHover')
+})
+
 $start.addEventListener('click', () => { 
     game.init()
 })

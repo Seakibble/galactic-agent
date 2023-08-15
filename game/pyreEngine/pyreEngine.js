@@ -121,8 +121,8 @@ class Pyre {
         constructor() {
             this.volume = {
                 master: 1,
-                music: 1,
-                sfx: 1,
+                music: 0.5,
+                sfx: 0.6,
                 voice: 1,
                 bulletTime: 0
             }
@@ -248,7 +248,8 @@ class Pyre {
             })
         }
         _calculateVolume(type) {
-            let volume = this.volume.master * this.volume[type] * (this._pauseFade ? this._pauseFadeValue : 1)
+            let volume = this.volume.master * this.volume[type]
+            if (type !== 'sfx') volume *= (this._pauseFade ? this._pauseFadeValue : 1)
             if (type === 'music') volume *= (1-this.volume.bulletTime)
             return volume
         }
@@ -286,7 +287,7 @@ class Pyre {
                         this.upgrades = this.map[3][1].split('')
 
                         
-                        Sound.loadMusic(this.music,false)
+                        Sound.loadMusic(this.music, Sound.musicEnabled())
                         
                         
                         this.map.forEach(row => {

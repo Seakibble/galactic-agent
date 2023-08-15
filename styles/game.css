@@ -3,7 +3,7 @@
 }
 
 body {
-    background: black;
+    background-image: url('../game/sprites/starsSpace.png');
     color: white;
     font-family: 'Press Start 2P', monospace;
 
@@ -24,6 +24,7 @@ h1 span {
 
 .title {
     width: 856px;
+    margin-bottom: 100px;
 
     image-rendering: optimizeSpeed;             /* Older versions of FF          */
     image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
@@ -72,7 +73,7 @@ canvas {
 }
 
 #startScreen {
-    background: linear-gradient(110deg, #5b002a, #13026c, #004260, #600080);
+    background: linear-gradient(110deg, #ff007711, #2e04ff11, #00aeff11, #bf00ff11);
     background-size: 400% 400%;
 	animation: gradient 20s infinite;
 }

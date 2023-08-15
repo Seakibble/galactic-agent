@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.16.4', log: 'Re-added murderBlock.png' },
     { version: 'v0.16.3', log: 'Removed murderblock.png' },
     { version: 'v0.16.2', log: 'Quit button goes to sharkside homepage' },
     { version: 'v0.16.1', log: 'Main menu background + music, button SFX' },

@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.16.2', log: 'Quit button goes to sharkside homepage' },
     { version: 'v0.16.1', log: 'Main menu background + music, button SFX' },
     { version: 'v0.16.0', log: 'Font now in canvas, background image, various tweaks' },
     { version: 'v0.15.6', log: 'Font and cursor changes, orb total shows' },

@@ -50,11 +50,8 @@ Camera = function () {
         DrawToScreen: function () {
             // console.log(this.renderList)
             if (Data.debug) this.Render(Draw(this.targetPos.x, this.targetPos.y, 5, 5, 'red'))
-            this.renderList.sort((a, b) => {
-                if (a.priority > b.priority) return -1
-                else if (a.priority < b.priority) return 1
-                else return 0
-            })
+            this.renderList.reverse()
+            this.renderList.sort((a, b) => (b.priority - a.priority))
             // console.log(this.renderList)
             // alert()
             this.DrawToScreenArray(this.renderList)
@@ -104,8 +101,12 @@ Camera = function () {
             drawThis.priority = priority
             this.renderList.push(drawThis)
         },
-        RenderObj: function (drawThis, priority = 5) {
+        RenderObj: function (drawThis, priority = null) {
             let obj = DrawObj(drawThis)
+            if (priority == null) {
+                if (drawThis.background) priority = 10
+                else priority = 5
+            }
             obj.priority = priority
             this.renderList.push(obj)
         }, 

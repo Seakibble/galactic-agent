@@ -354,6 +354,8 @@ class Pyre {
                             break
                         case 'M': tile = MineBot(i * GRID_SIZE, j * GRID_SIZE)
                             break
+                        case 'b': tile = Panel(i * GRID_SIZE, j * GRID_SIZE)
+                            break
                         case 'c': // Deprecated
                         case 'o': tile = Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
                             break

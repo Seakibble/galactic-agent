@@ -171,7 +171,10 @@ document.addEventListener("keydown", (event) => {
     // do something
     // console.log(event.key)
 
-    if (!Game.running) return
+    if (!Game.running) {
+        game.clearTimeouts()
+        return
+    }
     setInput(event.key, true)
 })
 document.addEventListener("keyup", (event) => {

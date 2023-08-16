@@ -20,6 +20,7 @@ let $optionsBack = document.getElementById('optionsBack')
 
 let $startScreen = document.getElementById('startScreen')
 let $start = document.getElementById('start')
+let $quit = document.getElementById('quit')
 
 let $victoryScreen = document.getElementById('victoryScreen')
 let $stats = document.getElementById('stats')

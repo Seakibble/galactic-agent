@@ -28,8 +28,7 @@ let game = {
     over: false,
     world: 1,
     levelColor: 'hsl(210,35%, 40%)',
-
-
+    timeouts: [],
     displayObjectives: function () {
         $objectives.innerHTML = ''
         for (let i = 0; i < this.objectiveTimeouts.length; i++) {
@@ -101,23 +100,41 @@ let game = {
         
     },
     openingText() {
+        $start.disabled = true
+        $quit.disabled = true
+
         Sound.loadMusic('07-a-threat-to-galactic-peace', true)
         if (!Sound.musicEnabled()) Sound.music.stop()
 
         $titles.classList.add('hide')
         let timing = 2000
+        
+        this.timeouts.push(setTimeout(() => { $titles.style.display = 'none' }, timing))
 
         $openingText.style.display = 'grid'
 
         for (let i = 0; i < $openingSlides.length; i++) {
             timing += 2200  
-            setTimeout(() => { $openingSlides[i].classList.remove('hide') }, timing)
-            timing += 5800
-            setTimeout(() => { $openingSlides[i].classList.add('hide') }, timing)
+            this.timeouts.push(setTimeout(() => { $openingSlides[i].classList.remove('hide') }, timing))
+            timing += 6300
+            this.timeouts.push(setTimeout(() => { $openingSlides[i].classList.add('hide') }, timing))
         }
         
-        timing += 5000
-        setTimeout(() => { this.start() }, timing)
+        this.timeouts.push(setTimeout(() => {
+            this.timeouts.push(setTimeout(() => { $titles.style.display = 'grid' }, 2000))
+            this.start()
+        }, timing))
+    },
+    clearTimeouts() {
+        console.log('hi')
+        if (this.timeouts.length > 0) {
+            this.timeouts.forEach(timeout => {
+                clearTimeout(timeout)
+            })
+            this.timeouts = []
+            setTimeout(() => { $titles.style.display = 'grid' }, 2000)
+            this.start()
+        }
     },
     start: function () {
         fadeToBlack(true, () => {

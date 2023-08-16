@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.17.4', log: 'Added background panels, render fixes' },
     { version: 'v0.17.3', log: 'Added images to opening cutscene' },
     { version: 'v0.17.2', log: 'Style fixes' },
     { version: 'v0.17.1', log: 'Updated planet name, style tweaks' },

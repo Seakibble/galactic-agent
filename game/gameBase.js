@@ -97,8 +97,25 @@ let game = {
 
         window.addEventListener('resize', () => game.resize())
         Sprites.loadSprite('stars', 1920, 1080)
-        this.start()
+        this.openingText()
         
+    },
+    openingText() {
+        Sound.loadMusic('07-a-threat-to-galactic-peace', true)
+        if (!Sound.musicEnabled()) Sound.music.stop()
+
+        $titles.classList.add('hide')
+        let timing = 2000
+
+        for (let i = 0; i < $openingSlides.length; i++) {
+            timing += 2500  
+            setTimeout(() => { $openingSlides[i].classList.remove('hide') }, timing)
+            timing += 5500
+            setTimeout(() => { $openingSlides[i].classList.add('hide') }, timing)
+        }
+        
+        timing += 5000
+        setTimeout(() => { this.start() }, timing)
     },
     start: function () {
         fadeToBlack(true, () => {

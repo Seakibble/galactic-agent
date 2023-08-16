@@ -27,15 +27,51 @@
         <div id="fadeToBlack"></div>
         <div id="content" class="content">
             <div id="startScreen" class="screen active">
-                <h1>
-                    <span>Galactic Agent</span>
-                    <img class='title' src="title.png">
-                </h1>
-                
-                <div class="menu">
-                    <!-- <h2>BY MAX LEEMING</h2> -->
-                    <button id="start"><span class="flare"></span>Initiate</button>
-                    <a href="https://www.sharkside.ca/" class='button' tabindex="-1"><button><span class="flare"></span>Quit</button></a>
+                <div id="titles">
+                    <h1>
+                        <span>Galactic Agent</span>
+                        <img class='title' src="title.png">
+                    </h1>
+                    
+                    <div class="menu">
+                        <!-- <h2>BY MAX LEEMING</h2> -->
+                        <button id="start"><span class="flare"></span>Initiate</button>
+                        <a href="https://www.sharkside.ca/" class='button' tabindex="-1"><button><span class="flare"></span>Quit</button></a>
+                    </div>
+                </div>
+                <div id="openingText">
+                    <div class="slide hide">
+                        <p class="big">MAX LEEMING PRESENTS</p>
+                    </div>
+                    <div class="slide hide">
+                        <p class="big">Galactic Agent</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>It's a dangerous time to live in <span class="gold">THE DRIFT</span>.</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>Piracy is rampant. Frontier systems endure constant psionic alien hyena raids.</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>But amid all this chaos and turmoil, a new threat to galactic peace emerges...</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>An experimental research facility called <span class="gold">VHAL-03</span> has gone dark, without warning.</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>The only hint of what transpired came in the form of a disturbing distress signal...</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>"...FACILITY COMPROMISED. EVACUATION UNTENABLE. <span class="gold">REQUESTING IMMEDIATE STATION DESTRUCTION</span>. SITUATION CRITICAL."</p>
+                    </div>
+                    <div class="slide hide">
+                        <p>Acting on minimal information, <span class="gold">FLEET COMMAND</span> has dispatched you to investigate.</p>
+                    </div>
+                    <div class="slide hide">
+                        <p><span class="gold">AGENT EINZBECKER</span>... it's all up to you. Good luck.</p>
+                    </div>
+
+                    
                 </div>
             </div>
             <div id="pauseScreen" class="screen">
@@ -66,10 +102,10 @@
                 <button id="optionsBack"><span class="flare"></span>Back</button>
             </div>            
             <div id="victoryScreen" class="screen">
-                <h2>OBJECTIVE SECURED</h2>
+                <h2>LEVEL COMPLETE</h2>
                 <div class="menu">
                     <div id="stats"></div>
-                    <button id="playAgain"><span class="flare"></span>Next Assignment</button>
+                    <button id="playAgain"><span class="flare"></span>Continue</button>
                 </div>
             </div>
             <div id="deadScreen" class="screen">

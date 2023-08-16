@@ -173,6 +173,38 @@ p {
     opacity: 1;
 }
 
+#titles, #openingText, .slide {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display:grid;
+    place-content: center;
+    opacity: 1;
+    transition: opacity 2s;
+}
+#openingText {
+    pointer-events: none;
+    display:grid;
+    place-content: center;
+}
+#openingText p {
+    font-size: 1.25em;
+    color: white;
+    max-width: 1050px;
+}
+
+#openingText.hide, #titles.hide, .slide.hide {
+    opacity: 0;
+}
+
+.big {
+    font-size: 1.5em;
+}
+.gold {
+    color: gold;
+    font-weight: bold;
+}
+
 #stats {
     background: var(--tertiarty);
     padding: 20px;

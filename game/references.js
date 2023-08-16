@@ -4,6 +4,10 @@ let $content = document.getElementById('content')
 
 let $fadeToBlack = document.getElementById('fadeToBlack')
 
+let $openingText = document.getElementById('openingText')
+let $titles = document.getElementById('titles')
+let $openingSlides = document.getElementsByClassName('slide')
+
 let $pauseScreen = document.getElementById('pauseScreen')
 let $resume = document.getElementById('resume')
 let $options = document.getElementById('options')

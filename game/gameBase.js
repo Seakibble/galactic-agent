@@ -110,9 +110,9 @@ let game = {
         $openingText.style.display = 'grid'
 
         for (let i = 0; i < $openingSlides.length; i++) {
-            timing += 2500  
+            timing += 2200  
             setTimeout(() => { $openingSlides[i].classList.remove('hide') }, timing)
-            timing += 5500
+            timing += 5800
             setTimeout(() => { $openingSlides[i].classList.add('hide') }, timing)
         }
         

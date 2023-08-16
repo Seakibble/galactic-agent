@@ -190,7 +190,15 @@ p {
 #openingText p {
     font-size: 1.25em;
     color: white;
-    max-width: 1050px;
+    max-width: 800px;
+}
+
+.slide {
+    align-content: center;
+    grid-gap: 40px;
+}
+.slide img {
+    justify-self: center;
 }
 
 #openingText.hide, #titles.hide, .slide.hide {
@@ -202,6 +210,10 @@ p {
 }
 .gold {
     color: gold;
+    font-weight: bold;
+}
+.red {
+    color: crimson;
     font-weight: bold;
 }
 

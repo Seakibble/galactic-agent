@@ -193,6 +193,17 @@ p {
     max-width: 800px;
 }
 
+#openingText .pressEnter {
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.15);
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100vw;
+
+    animation: pulse 4s ease-in-out infinite;
+}
+
 .slide {
     align-content: center;
     grid-gap: 40px;
@@ -445,6 +456,18 @@ canvas {
 }
 .hitPoint.empty div {
     background: rgb(61, 61, 61);
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.35;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {

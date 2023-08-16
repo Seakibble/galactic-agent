@@ -184,8 +184,8 @@ p {
 }
 #openingText {
     pointer-events: none;
-    display:grid;
     place-content: center;
+    display: none;
 }
 #openingText p {
     font-size: 1.25em;

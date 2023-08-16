@@ -352,7 +352,7 @@ canvas {
     justify-self: left;
     align-self: end;
     opacity: 0;
-    font-size: 2em;
+    font-size: 1.25em;
     color: var(--secondary);
 }
 

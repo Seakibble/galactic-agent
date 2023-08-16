@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.17.1', log: 'Updated planet name, style tweaks' },
     { version: 'v0.17.0', log: 'Added an opening cutscene' },
     { version: 'v0.16.6', log: 'Added tasteful fade between screens/levels' },
     { version: 'v0.16.5', log: 'Fixed quit/main menu links' },

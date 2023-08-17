@@ -284,7 +284,6 @@ class Pyre {
                         this.id = this.map[0][1]
                         this.sector = this.map[1][1]
                         this.subsector = this.map[2][1]
-                        this.room = this.map[3][1]
                         this.music = this.map[4][1]
                         this.upgrades = this.map[5][1].split('')
 

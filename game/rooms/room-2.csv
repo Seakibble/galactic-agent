@@ -1,7 +1,7 @@
 ID,2,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#,#
-Sector,Vedion High Altitude Lab,#,#,#,#,#,#,#,#,#,#,#,#,#,,,,,,,,,4
-Subsector,Central Access,#,,,,,,,,,,,#,#,,o,,,,,o,,4
-Room,Central Access,1,,,o,,o,,o,,o,,#,#,,,,,,,,,4
+Sector,VHAL - Central Access,#,#,#,#,#,#,#,#,#,#,#,#,#,,,,,,,,,4
+Subsector,Gateway Hub,#,,,,,,,,,,,#,#,,o,,,,,o,,4
+,,1,,,o,,o,,o,,o,,#,#,,,,,,,,,4
 Music,01-galactic-agent,1,,,,,,,,,,,#,#,#,#,#,,,#,#,#,#
 Upgrades,D,1,p1,,,,,,,,,,#,#,,,,,,,,,#
 ,,#,#,#,#,#,#,#,#,b,b,b,#,#,,o,,,,,o,,#

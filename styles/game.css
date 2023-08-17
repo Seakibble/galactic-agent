@@ -205,10 +205,12 @@ p {
 }
 
 .slide {
+    height: 100vh;
     align-content: center;
     grid-gap: 40px;
 }
 .slide img {
+    max-height: 50vh;
     justify-self: center;
 }
 
@@ -375,8 +377,14 @@ canvas {
     justify-self: left;
     align-self: end;
     opacity: 0;
-    font-size: 1.25em;
     color: var(--secondary);
+}
+#levelStart .sector {
+    font-size: 1em;
+    padding-bottom: 20px;
+}
+#levelStart .subsector {    
+    font-size: 0.75em;
 }
 
 .start {

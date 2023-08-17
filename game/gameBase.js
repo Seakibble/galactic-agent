@@ -19,7 +19,7 @@ let game = {
     then: null,
     elapsed: null,    
     objectives: [
-        "Get to the EXIT"
+        "Investigate the station"
     ],
     objectiveTimeouts: [],
     paused: true,
@@ -156,8 +156,11 @@ let game = {
                         camera.Track(Data.player)
 
                         // $levelStart.innerHTML = 'LEVEL ' + this.world + '-' + ((this.winStreak % LEVELS_PER_WORLD) + 1)
-                        if (Level.sector !== $levelStart.innerHTML) {
-                            $levelStart.innerHTML = Level.sector
+                        if (!$levelStart.querySelector('.sector') || Level.sector !== $levelStart.querySelector('.sector').textContent) {
+                            $levelStart.innerHTML = `<div class='sector'>${Level.sector}</div><div class='subsector'>${Level.subsector}</div>`
+                            setTimeout(() => { $levelStart.classList.add('start') }, 500)
+                        } else if (Level.subsector !== $levelStart.querySelector('.subsector').textContent){
+                            $levelStart.innerHTML = `<div class='subsector'>${Level.subsector}</div>`
                             setTimeout(() => { $levelStart.classList.add('start') }, 500)
                         }
 

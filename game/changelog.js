@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.18.0', log: 'World transitions!' },
     { version: 'v0.17.6', log: 'Minor text tweak to intro' },
     { version: 'v0.17.5', log: 'Added text to skip opening cutscene' },
     { version: 'v0.17.4', log: 'Added background panels, render fixes' },

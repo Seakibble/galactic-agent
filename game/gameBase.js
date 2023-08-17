@@ -29,6 +29,7 @@ let game = {
     world: 1,
     levelColor: 'hsl(210,35%, 40%)',
     timeouts: [],
+    loading: false,
     displayObjectives: function () {
         $objectives.innerHTML = ''
         for (let i = 0; i < this.objectiveTimeouts.length; i++) {
@@ -122,50 +123,55 @@ let game = {
         
         this.timeouts.push(setTimeout(() => {
             this.timeouts.push(setTimeout(() => { $titles.style.display = 'grid' }, 2000))
-            this.start()
+            this.start(1)
         }, timing))
     },
     clearTimeouts() {
-        console.log('hi')
         if (this.timeouts.length > 0) {
             this.timeouts.forEach(timeout => {
                 clearTimeout(timeout)
             })
             this.timeouts = []
             setTimeout(() => { $titles.style.display = 'grid' }, 2000)
-            this.start()
+            this.start(1)
         }
     },
-    start: function () {
-        fadeToBlack(true, () => {
-            this.world = Math.floor(Data.winStreak / LEVELS_PER_WORLD) + 1
-            this.levelColor = 'hsl(' + ((this.world - 1) * 55 + 210) % 360 + ',35%, 40%)'
-            $levelStart.classList.remove('start')
-            Data.objects = []
-            this.over = false
-            Data.timer = 0
-            Data.orbsThisLevel = 0
-            $orbTotal.textContent = Data.orbsThisLevel + Data.orbsBanked
+    start: function (roomID, fromRoom = null) {
+        if (!this.loading) {
+            this.loading = true
+            fadeToBlack(true, () => {
+                this.world = Math.floor(Data.winStreak / LEVELS_PER_WORLD) + 1
+                this.levelColor = 'hsl(' + ((this.world - 1) * 55 + 210) % 360 + ',35%, 40%)'
+                $levelStart.classList.remove('start')
+                Data.objects = []
+                this.over = false
+                Data.timer = 0
+                Data.orbsThisLevel = 0
+                $orbTotal.textContent = Data.orbsThisLevel + Data.orbsBanked
 
-            let levelToLoad = Data.winStreak + 1
-            if (levelToLoad > 3) levelToLoad = 'win'
-            Level.loadLevel('level-' + levelToLoad)
-                .then((player) => {
-                    Data.player = Level.player
-                    camera.Track(Data.player)
+            
+                Level.loadLevel('room-' + roomID, fromRoom)
+                    .then((player) => {
+                        Data.player = Level.player
+                        camera.Track(Data.player)
 
-                    // $levelStart.innerHTML = 'LEVEL ' + this.world + '-' + ((this.winStreak % LEVELS_PER_WORLD) + 1)
-                    $levelStart.innerHTML = Level.name
-                    setTimeout(() => { $levelStart.classList.add('start') }, 500)
-                    this.displayObjectives()
+                        // $levelStart.innerHTML = 'LEVEL ' + this.world + '-' + ((this.winStreak % LEVELS_PER_WORLD) + 1)
+                        if (Level.sector !== $levelStart.innerHTML) {
+                            $levelStart.innerHTML = Level.sector
+                            setTimeout(() => { $levelStart.classList.add('start') }, 500)
+                        }
 
-                    // this.startAnimating()
-                    // this.initialized = true
-                    this.pause(false)
-                    Game.start()
-                })
-        })
+                        this.displayObjectives()
+
+                        // this.startAnimating()
+                        // this.initialized = true
+                        this.pause(false)
+                        this.loading = false
+                        Game.start()
+                    })
+            })
         
+        }
         
     },
     tick: function () {

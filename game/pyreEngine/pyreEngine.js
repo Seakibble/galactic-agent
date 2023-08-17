@@ -264,9 +264,9 @@ class Pyre {
             this.gridX = null
             this.gridY = null
             this.gridWall = 1000
-            this.path = 'game/levels/'
+            this.path = 'game/rooms/'
         }
-        loadLevel(src) {
+        loadLevel(src, fromRoom) {
             return new Promise((resolve, reject) => { 
                 fetch(this.path + src + '.csv')
                     .then((response) => response.text())
@@ -282,9 +282,11 @@ class Pyre {
                             
                         })
                         this.id = this.map[0][1]
-                        this.name = this.map[1][1]
-                        this.music = this.map[2][1]
-                        this.upgrades = this.map[3][1].split('')
+                        this.sector = this.map[1][1]
+                        this.subsector = this.map[2][1]
+                        this.room = this.map[3][1]
+                        this.music = this.map[4][1]
+                        this.upgrades = this.map[5][1].split('')
 
                         
                         Sound.loadMusic(this.music, Sound.musicEnabled())
@@ -303,7 +305,7 @@ class Pyre {
                         this.gridX = this.map[0].length
                         this.gridY = this.map.length
 
-                        this._generateLevel()
+                        this._generateLevel(fromRoom)
                         resolve(true)
                     })
                     .catch((error) => {
@@ -311,30 +313,33 @@ class Pyre {
                     })
             })
         }
-        _generateLevel() {
+        _generateLevel(fromRoom) {
             Platform(-this.gridWall, this.gridY * GRID_SIZE, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null)// bottom
             Platform(-this.gridWall, -this.gridWall, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null) // top
 
             Platform(-this.gridWall, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // left
             Platform(this.gridX * GRID_SIZE, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // right
 
+            this.player = Player(-1000,1000)
+            this.upgrades.forEach((char) => {
+                let upgrade = 'none'
+                switch (char) {
+                    case 'D': upgrade = 'dash'; break
+                    case 'W': upgrade = 'wallClimb'; break
+                    case 'G': upgrade = 'gun'; break
+                    case 'B': upgrade = 'bulletTime'; break
+                }
+                this.player.upgrades[upgrade] = true
+            })
+
+
             for (let i = 0; i < this.gridX; i++) {
                 for (let j = 0; j < this.gridY; j++) {
                     let tile = null
                     switch (this.map[j][i]) {
                         case 'p':
-                            if (!this.player) this.player = Player(i * GRID_SIZE + 10, j * GRID_SIZE)
-                            else this.player.pos = new Pyre.Vector(i * GRID_SIZE + 10, j * GRID_SIZE)
-                            this.upgrades.forEach((char) => {
-                                let upgrade = 'none'
-                                switch (char) {
-                                    case 'D': upgrade = 'dash'; break
-                                    case 'W': upgrade = 'wallClimb'; break
-                                    case 'G': upgrade = 'gun'; break
-                                    case 'B': upgrade = 'bulletTime'; break
-                                }
-                                this.player.upgrades[upgrade] = true
-                            })
+                            if (fromRoom) break
+                            else this.player.pos.set(i * GRID_SIZE + 10, j * GRID_SIZE)
                             break
                         case 'g': tile = Goal(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, 'door')
                             break
@@ -359,6 +364,21 @@ class Pyre {
                         case 'c': // Deprecated
                         case 'o': tile = Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
                             break
+                        default:
+                            if (this.map[j][i] === '') break
+                            if (this.map[j][i] && !isNaN(this.map[j][i])) {
+                                console.log('Transition:', this.id, this.map[j][i])
+                                tile = Transition(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, this.map[j][i], this.id)
+                                break
+                            }
+
+                            
+                            if (this.map[j][i].includes('p')) { 
+                                let room = this.map[j][i].split('p')[1]
+                                if (room !== NaN && room == fromRoom) {
+                                    this.player.pos.set(i * GRID_SIZE + 10, j * GRID_SIZE)
+                                }
+                            }
                     }
                     this.map[j][i] = tile
                 }

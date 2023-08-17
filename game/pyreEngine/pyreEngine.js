@@ -367,7 +367,6 @@ class Pyre {
                         default:
                             if (this.map[j][i] === '') break
                             if (this.map[j][i] && !isNaN(this.map[j][i])) {
-                                console.log('Transition:', this.id, this.map[j][i])
                                 tile = Transition(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, this.map[j][i], this.id)
                                 break
                             }

@@ -3,7 +3,7 @@ Platform = function (x, y, w, h, type = 'block') {
     obj.size.x = w
     obj.size.y = h
 
-    obj.color = "#111"
+    obj.color = "#000"
     obj.collision = true
     obj.obstructs = true
     

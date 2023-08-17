@@ -152,7 +152,6 @@ document.addEventListener("mousedown", (event) => {
 
     let btn = 'Left Click'
     if (event.buttons == 2) btn = 'Right Click'
-        
     setInput(btn, true)
 })
 document.addEventListener("mouseup", (event) => {
@@ -160,7 +159,6 @@ document.addEventListener("mouseup", (event) => {
 
     let btn = 'Left Click'
     if (event.buttons == 2) btn = 'Right Click'
-
     setInput(btn, false)
 })
 
@@ -268,18 +266,16 @@ function setInput(key, keyDown) {
             if (game.paused || game.over) break
             if (keyDown) {
                 input.aiming = true
-            } else {
+            } else if (input.aiming) {
                 input.aiming = false
                 input.shoot = true
             }
             break
         case 'Right Click':
+            
             if (game.paused || game.over) break
-            if (keyDown) {
-                input.aiming = true
-            } else {
-                input.aiming = false
-                input.shoot = true
+            if (keyDown && Data.debug) {
+                Data.player.pos = getWorldSpace(input.mouse)
             }
             break
     }

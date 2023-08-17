@@ -156,7 +156,7 @@ let game = {
                         camera.Track(Data.player)
 
                         // $levelStart.innerHTML = 'LEVEL ' + this.world + '-' + ((this.winStreak % LEVELS_PER_WORLD) + 1)
-                        if (!$levelStart.querySelector('.sector') || Level.sector !== $levelStart.querySelector('.sector').textContent) {
+                        if (Level.sectorChange) {
                             $levelStart.innerHTML = `<div class='sector'>${Level.sector}</div><div class='subsector'>${Level.subsector}</div>`
                             setTimeout(() => { $levelStart.classList.add('start') }, 500)
                         } else if (Level.subsector !== $levelStart.querySelector('.subsector').textContent){

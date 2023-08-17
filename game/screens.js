@@ -39,7 +39,7 @@ Screens = function () {
             $resume.addEventListener('click', () => game.pause())
             $options.addEventListener('click', () => this.set('options'))
             $restart.addEventListener('click', () => {
-                game.start()
+                game.start(Level.id, Level.fromRoom)
             })
             $optionsBack.addEventListener('click', () => this.set('pause'))
             $keyboardLayout.addEventListener('click', () => {

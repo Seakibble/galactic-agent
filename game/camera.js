@@ -111,8 +111,8 @@ Camera = function () {
             this.renderList.push(obj)
         }, 
         CameraSpace: function (vec) {
-            let newVec = Vector(vec.x, vec.y)
-            let otherVec = Vector(this.pos.x + CV.x / 2, this.pos.y + CV.y / 2)
+            let newVec = new Pyre.Vector(vec.x, vec.y)
+            let otherVec = new Pyre.Vector(this.pos.x + CV.x / 2, this.pos.y + CV.y / 2)
             newVec.subtract(otherVec)
 
             return newVec

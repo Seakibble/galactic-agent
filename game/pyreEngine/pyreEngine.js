@@ -258,7 +258,9 @@ class Pyre {
     static Level = class {
         constructor() {
             this.map = []
-            this.name = null
+            this.sector = null
+            this.subsector = null
+            this.sectorChange = true
             this.player = null
             this.music = null
             this.gridX = null
@@ -282,7 +284,12 @@ class Pyre {
                             
                         })
                         this.id = this.map[0][1]
-                        this.sector = this.map[1][1]
+                        if (this.sector !== this.map[1][1]) {
+                            this.sectorChange = true
+                            this.sector = this.map[1][1]
+                        } else {
+                            this.sectorChange = false
+                        }
                         this.subsector = this.map[2][1]
                         this.music = this.map[4][1]
                         this.upgrades = this.map[5][1].split('')
@@ -374,6 +381,7 @@ class Pyre {
                             if (this.map[j][i].includes('p')) { 
                                 let room = this.map[j][i].split('p')[1]
                                 if (room !== NaN && room == fromRoom) {
+                                    this.fromRoom = fromRoom
                                     this.player.pos.set(i * GRID_SIZE + 10, j * GRID_SIZE)
                                 }
                             }

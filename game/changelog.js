@@ -1,5 +1,6 @@
 const CHANGELOG = [
     // { version: '', log: '' },
+    { version: 'v0.18.4', log: 'New track for first sector' },
     { version: 'v0.18.3', log: 'Sector only shows on change, debug teleporting' },
     { version: 'v0.18.2', log: 'Sector and subsector names display on transition' },
     { version: 'v0.18.1', log: 'Added sprite for transitions' },

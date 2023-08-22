@@ -57,13 +57,13 @@ Input = function () {
                 if (this.left && Data.player.vel.x > -MAX_SPEED && this.stickyDelay < 0) {
                     if (Data.player.vel.x > 0) Data.player.vel.x = 0
                     // if (Data.player.vel.x > 0) Data.player.vel.x *= drag
-                    if (!Data.player.sticking) Data.player.facing = 'left'
+                    if (!Data.player.sticking) Data.player.facingDirection = 'left'
                     Data.player.vel.add(new Pyre.Vector(-ACCELERATION, 0))
                 } else if (this.right && Data.player.vel.x < MAX_SPEED && this.stickyDelay < 0) {
                     if (Data.player.vel.x < 0) Data.player.vel.x = 0
                     // if (Data.player.vel.x < 0) Data.player.vel.x *= drag
                     Data.player.vel.add(new Pyre.Vector(ACCELERATION, 0))
-                    if (!Data.player.sticking) Data.player.facing = 'right'
+                    if (!Data.player.sticking) Data.player.facingDirection = 'right'
                 } else if (!this.left && !this.right) {
                     Data.player.vel.x *= drag
                 }
@@ -72,14 +72,14 @@ Input = function () {
             // Shooting
             if (Data.player.upgrades.gun && this.shoot) {
                 this.shoot = false
-                let facing = Data.player.Facing()
+                let facing = Data.player.facing()
                 // audio.player.shoot.play()
                 Sound.playSFX('shoot')
                 let velocity = new Pyre.Vector(Math.cos(Data.player.aimingAngle), Math.sin(Data.player.aimingAngle))
                 velocity.multiply(30)
                 let position = Data.player.center().add(velocity.clone())
 
-                Projectile(position.x,position.y,5, 5,velocity.x, velocity.y)
+                new Projectile(position.x,position.y,5, 5,velocity.x, velocity.y)
             }
 
             if (Data.player.upgrades.bulletTime && this.aiming) {
@@ -102,7 +102,7 @@ Input = function () {
             if (this.jump && (Data.player.grounded || Data.player.jumpLate < JUMP_LATE_TOLERANCE) && this.jumpLock == false) {
                 //
                 if (Data.player.sticking && (!Data.player.grounded || (Data.player.grounded && (this.left || this.right) ))) {
-                    if (Data.player.facing == 'left') Data.player.vel.x -= JUMP_POWER * WALL_JUMP_POWER
+                    if (Data.player.facingDirection == 'left') Data.player.vel.x -= JUMP_POWER * WALL_JUMP_POWER
                     else Data.player.vel.x += JUMP_POWER * WALL_JUMP_POWER
                     this.stickyDelay = STICKY_DELAY
                 }
@@ -134,7 +134,7 @@ Input = function () {
                 Data.player.dashed = true
                 Data.player.dashCooldown = DASH_DURATION
                 Data.player.vel.y = 0
-                Data.player.vel.x = DASH_POWER * Data.player.Facing()
+                Data.player.vel.x = DASH_POWER * Data.player.facing()
                 Sound.playSFX('jetpack')
             }
             this.dash = false

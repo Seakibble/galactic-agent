@@ -1,64 +1,69 @@
-Player = function (x, y) {
-    let obj = Obj(x, y)
-    obj.player = true
-    obj.size.x = 35
-    obj.size.y = 60
-    obj.color = "#333"
-    
-    obj.gravity = true
-    obj.collision = true
-    obj.moves = true
-    obj.aimingAngle = 0
-    obj.reticulePos = new Pyre.Vector()
+class Player extends Pyre.Object {
+    constructor(x, y) {
+        super(x, y, 35, 60)
+        this.player = true
+        this.color = "#333"
+        
+        this.gravity = true
+        this.collision = true
+        this.moves = true
+        this.aimingAngle = 0
+        this.reticulePos = new Pyre.Vector()
 
-    obj.healthMax = 5
-    obj.health = 5
+        this.healthMax = 5
+        this.health = 5
 
-    obj.interactTarget = null
+        this.interactTarget = null
+        this.jumpLate = 0
+        this.dashCooldown = 0
+        this.facingDirection = 'right'
+        this.upgrades = {
+            wallClimb: false,
+            dash: false,
+            gun: true,
+            bulletTime: false
+        }
+        const playerReference = this
+        this.colBoxes = {
+            size: 3,
+            offset: 10,
+            Up: function () {
+                return Box(this.offset + playerReference.pos.x, - this.size + playerReference.pos.y, playerReference.size.x - this.offset * 2, this.size)
+            },
+            Down: function () {
+                return Box(this.offset + playerReference.pos.x, playerReference.size.y + playerReference.pos.y, playerReference.size.x - this.offset * 2, this.size)
+            },
+            Left: function () {
+                return Box(-this.size + playerReference.pos.x, this.offset + playerReference.pos.y, this.size, playerReference.size.y - this.offset * 2)
+            },
+            Right: function () {
+                return Box(playerReference.size.x + playerReference.pos.x, this.offset + playerReference.pos.y, this.size, playerReference.size.y - this.offset * 2)
+            }
+        }
 
-    obj.jumpLate = 0
-    obj.dashCooldown = 0
-    obj.facing = 'right'
-    obj.upgrades = {
-        wallClimb: false,
-        dash: false,
-        gun: true,
-        bulletTime: false
+        Sound.loadSFXArray(['jump', 'walk', 'land', 'landHeavy', 'shoot'])
+        Sound.loadSFX('jetpack', 'jetpack', true)
+        Sound.loadBulletTime('bullet-time')
+        this.displayHealth()
+        Data.player = this
     }
 
-    obj.displayHealth = function() {
+    displayHealth () {
         $health.innerHTML = ''
         for (let i = 1; i <= this.healthMax; i++) {
             $health.innerHTML += `<div class='hitPoint ${this.health < i ? "empty" : ""}'><div></div></div>`
         }
     }
 
-    obj.damage = function (dam = 1) {
+    damage (dam = 1) {
         this.health -= dam
         this.displayHealth()
         if (this.health <= 0) game.dead()
     }
-
-    obj.colBoxes = {
-        size: 3,
-        offset: 10,
-        Up: function () {
-            return Box(this.offset + obj.pos.x, - this.size + obj.pos.y, obj.size.x - this.offset * 2, this.size)
-        },
-        Down: function () {
-            return Box(this.offset + obj.pos.x, obj.size.y + obj.pos.y, obj.size.x - this.offset * 2, this.size)
-        },
-        Left: function () {
-            return Box(-this.size + obj.pos.x, this.offset + obj.pos.y, this.size, obj.size.y - this.offset * 2)
-        },
-        Right: function () {
-            return Box(obj.size.x + obj.pos.x, this.offset + obj.pos.y, this.size, obj.size.y - this.offset * 2)
-        }
-    }
-
-    obj.update = function () {
+    
+    update () {
         if (this.upgrades.gun && !Sound.bulletTime.playing()) Sound.bulletTime.play()
-        
+
         if (this.gravity && !this.grounded && this.dashCooldown < 0) {
             this.vel.add(GRAVITY.clone().multiply(Game.timeScale))
         }
@@ -76,7 +81,7 @@ Player = function (x, y) {
         }
     }
 
-    obj.checkCollision = function () {
+    checkCollision () {
         if (!this.collision) return
 
         let noGroundCollision = true
@@ -100,9 +105,9 @@ Player = function (x, y) {
                     else if (this.vel.y > 5) Sound.playSFX('land')
                     // if (this.vel.y > 25) audio.player.landHeavy.play() 
                     // else if (this.vel.y > 5) audio.player.land.play()
-                        
+
                     this.vel.y = 0
-                    
+
                     if (this.moves) {
                         this.grounded = true
                     }
@@ -137,9 +142,9 @@ Player = function (x, y) {
         }
         if (!noWallCollision && this.upgrades.wallClimb) {
             this.sticking = true
-            
-            if (collideLeft) this.facing = 'right'
-            else this.facing = 'left'
+
+            if (collideLeft) this.facingDirection = 'right'
+            else this.facingDirection = 'left'
 
             if (collideLeft && input.left || collideRight && input.right) {
                 this.vel.y = 0
@@ -148,7 +153,7 @@ Player = function (x, y) {
             if (!input.jump) {
                 input.jumpLock = false
                 this.jumpLate = 0
-            } 
+            }
         } else {
             this.sticking = false
         }
@@ -166,7 +171,8 @@ Player = function (x, y) {
         if (this.dashCooldown <= DASH_RECHARGE) this.dashed = false
         if (this.dashCooldown < 0) Sound.sfx['jetpack'].stop()
     }
-    obj.checkInteract = function () {
+    
+    checkInteract () {
         let targets = []
         for (let i = 0; i < Data.objects.length; i++) {
             let that = Data.objects[i]
@@ -192,16 +198,16 @@ Player = function (x, y) {
         else this.interactTarget = null
     }
 
-    obj.getGun = function () {
+    getGun () {
         let pulse = Pulse(700, 2) - 2
-        if (this.Facing() == 1) {
+        if (this.facing() == 1) {
             return Box(this.pos.x + this.size.x / 2 - 5, this.pos.y + pulse + this.size.y / 2, 40, 8, GEAR_COLOR)
         } else {
             return Box(this.pos.x + this.size.x / 2 - 35, this.pos.y + pulse + this.size.y / 2, 40, 8, GEAR_COLOR)
         }
     }
 
-    obj.onCollision = function (that) {
+    onCollision (that) {
         if (this.moves && this.obstructs && that.obstructs) {
             this.pos.y = that.pos.y - this.size.y
             this.vel.y = 0
@@ -211,7 +217,7 @@ Player = function (x, y) {
         }
     }
 
-    obj.draw = function () {
+    draw () {
         // Dude
         camera.RenderObj(this, 3)
         let visorColor = VISOR_COLOR
@@ -225,9 +231,9 @@ Player = function (x, y) {
         let gun = this.getGun()
         let pivot = Pivot()
         if (this.upgrades.gun && input.aiming) {
-            if (this.Facing() == 1) pivot = Pivot(4, 4, this.aimingAngle)
+            if (this.facing() == 1) pivot = Pivot(4, 4, this.aimingAngle)
             else pivot = Pivot(36, 4, this.aimingAngle + Math.PI)
-            
+
             // camera.Render(DrawLine(
             //     this.reticulePos.x, this.reticulePos.y,
             //     this.pos.x + this.size.x / 2, this.pos.y + pulse + this.size.y / 2,
@@ -239,12 +245,12 @@ Player = function (x, y) {
         }
 
         // Helmet
-        camera.Render(Draw(this.pos.x, this.pos.y + pulse - 2, this.size.x, this.size.x-5, gearColor), 2)
+        camera.Render(Draw(this.pos.x, this.pos.y + pulse - 2, this.size.x, this.size.x - 5, gearColor), 2)
 
-        if (this.facing == 'left') {
+        if (this.facingDirection == 'left') {
             // Antenna
             camera.Render(Draw(this.pos.x + this.size.x - 7, this.pos.y - 15 + pulse, 2, 16, this.color), 4)
-            
+
             // Visor
             camera.Render(Draw(this.pos.x, this.pos.y + 5 + pulse, 20, 6, visorColor), 1)
             camera.Render(Draw(this.pos.x, this.pos.y + 10 + pulse, 12, 10, visorColor), 1)
@@ -255,8 +261,8 @@ Player = function (x, y) {
                 camera.Render(Draw(this.pos.x + this.size.x - 2, this.pos.y + pulse + 25, 8, 20, thrusterColor), 1)
             }
 
-            
-        } else if (this.facing == 'right') {
+
+        } else if (this.facingDirection == 'right') {
             // Antenna
             camera.Render(Draw(this.pos.x + 7, this.pos.y - 15 + pulse, 2, 16, this.color), 4)
 
@@ -274,7 +280,7 @@ Player = function (x, y) {
         if (this.interactTarget) {
             let t = this.interactTarget
             let text = t.interactText ? t.interactText : 'Interact'
-            camera.Render(DrawText(t.pos.x + t.size.x / 2, t.pos.y -30, text, 'black', 'center'))
+            camera.Render(DrawText(t.pos.x + t.size.x / 2, t.pos.y - 30, text, 'black', 'center'))
         }
 
         if (Data.debug) {
@@ -283,14 +289,6 @@ Player = function (x, y) {
             camera.RenderObj(this.colBoxes.Left())
             camera.RenderObj(this.colBoxes.Right())
         }
-        
+
     }
-    Sound.loadSFXArray(['jump', 'walk', 'land', 'landHeavy', 'shoot'])
-    Sound.loadSFX('jetpack', 'jetpack', true)
-    Sound.loadBulletTime('bullet-time')
-    
-    obj.displayHealth()
-    Data.objects.push(obj)
-    Data.player = obj
-    return obj
 }

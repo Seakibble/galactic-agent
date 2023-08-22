@@ -1,38 +1,35 @@
-Projectile = function (x, y, w, h, vx, vy) {
-    let obj = Obj(x-w/2, y-h/2)
-    obj.size.set(w, h)
-    obj.vel.set(vx, vy)
+class Projectile extends Pyre.Object {
+    constructor(x, y, w, h, vx, vy) {
+        super(x, y, w, h)
+        this.size.set(w, h)
+        this.vel.set(vx, vy)
 
-    obj.color = "red"
-    obj.collision = true
-    obj.shootable = false
-    obj.moves = true
-    obj.projectile = true
-    obj.damage = 1
-    obj.image = 'bullet'
+        this.color = "red"
+        this.collision = true
+        this.shootable = false
+        this.moves = true
+        this.projectile = true
+        this.damage = 1
+        this.image = 'bullet'
 
-    obj.draw = function () {
-        // if (this.size.x == this.size.y) {
-        //     camera.Render(DrawCircle(this.pos.x, this.pos.y, this.size.x, this.color))
-        // } else {
+        Sprites.loadSprite('bullet')
+        Sound.loadSFX('bulletImpact')
+    }
+
+    draw () {
         if (Data.debug) {
-            camera.Render(Draw(this.pos.x,this.pos.y, this.size.x, this.size.y, this.color), 1)
+            camera.Render(Draw(this.pos.x, this.pos.y, this.size.x, this.size.y, this.color), 1)
         } else {
             camera.Render(Draw(this.pos.x, this.pos.y, 64, 64, 'white', Pivot(32, 32, this.vel.angle()), 'bullet'), 2)
         }
     }
 
-    obj.onCollision = function (other) {
+    onCollision (other) {
         if (other.shootable) {
             other.damage(this.damage)
             this.destroy = true
-            
-            ExplosionBullet(this.pos.x - this.size.x, this.pos.y - this.size.y, 32, 32, 0.1)
+
+            new ExplosionBullet(this.pos.x - this.size.x, this.pos.y - this.size.y, 32, 32, 0.1)
         }
     }
-
-    Sprites.loadSprite('bullet')
-    Sound.loadSFX('bulletImpact')
-    Data.objects.push(obj)
-    return obj
 }

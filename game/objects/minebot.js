@@ -1,20 +1,25 @@
-MineBot = function (x, y) {
-    let obj = Obj(x, y)
-    obj.size.x = 64
-    obj.size.y = 64
-    obj.name = 'minebot'
+class MineBot extends Pyre.Object {
+    constructor(x, y, w = GRID_SIZE, h = GRID_SIZE) {
+        super(x, y, w, h)
+        this.name = 'minebot'
 
-    obj.collision = true
-    // obj.obstructs = true
-    obj.color = "purple"
-    obj.phase = null
-    obj.sightRadius = 350
-    obj.following = false
-    obj.maxSpeed = 15
-    obj.moves = true
-    obj.impactForce = 20
+        this.collision = true
+        this.color = "purple"
+        this.phase = null
+        this.sightRadius = 350
+        this.following = false
+        this.maxSpeed = 15
+        this.moves = true
+        this.impactForce = 20
 
-    obj.onCollision = function (other) {
+        this.loadImage('minebot', this.size.x, this.size.y)
+        Sprites.loadSprite('minebotActive', this.size.x, this.size.y)
+
+        Sound.loadSFX('explosion')
+        Sound.loadSFX('minebotActivate')
+    }
+
+    onCollision (other) {
         if (other.player) {
             other.damage()
             let force = other.pos.difference(this.pos)
@@ -26,14 +31,10 @@ MineBot = function (x, y) {
         } else if (other.projectile) {
             this.destroy = true
         }
-        if (this.destroy) Explosion(this.pos.x, this.pos.y, 64, 64, 0.2)
+        if (this.destroy) new Explosion(this.pos.x, this.pos.y, 64, 64, 0.2)
     }
 
-    // obj.draw = function () {
-    //     // let pivot = Pivot(this.size.x / 2, this.size.y / 2, Math.PI / 4 + pulse)
-    //     camera.Render(DrawObj(this))
-    // }
-    obj.update = function () {
+    update () {
         if (this.phase == null) this.phase = Math.random() * 2 * Math.PI
         let pulse = Pulse(400, 1, this.phase)
 
@@ -42,7 +43,7 @@ MineBot = function (x, y) {
                 Sound.playSFX('minebotActivate')
                 this.image = 'minebotActive'
             }
-            this.following = true 
+            this.following = true
         }
 
         if (this.following) {
@@ -54,15 +55,7 @@ MineBot = function (x, y) {
         } else {
             this.pos.y += pulse
         }
-        
+
         this.pos.add(this.vel.clone().multiply(Game.timeScale))
     }
-
-    obj.loadImage(obj.name, obj.size.x, obj.size.y)
-    Sprites.loadSprite('minebotActive', obj.size.x, obj.size.y)
-
-    Data.objects.push(obj)
-    Sound.loadSFX('explosion')
-    Sound.loadSFX('minebotActivate')
-    return obj
 }

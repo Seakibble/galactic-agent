@@ -320,13 +320,13 @@ class Pyre {
             })
         }
         _generateLevel(fromRoom) {
-            Platform(-this.gridWall, this.gridY * GRID_SIZE, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null)// bottom
-            Platform(-this.gridWall, -this.gridWall, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null) // top
+            new Block(-this.gridWall, this.gridY * GRID_SIZE, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null)// bottom
+            new Block(-this.gridWall, -this.gridWall, this.gridX * GRID_SIZE + this.gridWall * 2, this.gridWall, null) // top
 
-            Platform(-this.gridWall, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // left
-            Platform(this.gridX * GRID_SIZE, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // right
+            new Block(-this.gridWall, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // left
+            new Block(this.gridX * GRID_SIZE, -this.gridWall, this.gridWall, this.gridY * GRID_SIZE + this.gridWall * 2, null) // right
 
-            this.player = Player(-1000,1000)
+            this.player = new Player(-1000,1000)
             this.upgrades.forEach((char) => {
                 let upgrade = 'none'
                 switch (char) {
@@ -349,31 +349,31 @@ class Pyre {
                             break
                         case 'g': tile = Goal(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, 'door')
                             break
-                        case '#': tile = Platform(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+                        case '#': tile = new Block(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
                             break
-                        case '|': tile = GlassPane(i * GRID_SIZE + (GRID_SIZE-10)/2, j * GRID_SIZE, 10, GRID_SIZE)
+                        case '|': tile = new GlassPane(i * GRID_SIZE + (GRID_SIZE-15)/2, j * GRID_SIZE, 15, GRID_SIZE)
                             break
-                        case '-': tile = GlassPane(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, 10)
+                        case '-': tile = new GlassPane(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, 15)
                             break
-                        case '^': tile = DamageBox(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+                        case '^': tile = new MurderBlock(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE)
                             break
-                        case 'D': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'dash')
+                        case 'D': tile = new Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'dash')
                             break
-                        case 'W': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'wallClimb')
+                        case 'W': tile = new Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'wallClimb')
                             break
-                        case 'G': tile = Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'gun')
+                        case 'G': tile = new Upgrade(i * GRID_SIZE, j * GRID_SIZE, 'gun')
                             break
-                        case 'M': tile = MineBot(i * GRID_SIZE, j * GRID_SIZE)
+                        case 'M': tile = new MineBot(i * GRID_SIZE, j * GRID_SIZE)
                             break
-                        case 'b': tile = Panel(i * GRID_SIZE, j * GRID_SIZE)
+                        case 'b': tile = new Panel(i * GRID_SIZE, j * GRID_SIZE)
                             break
                         case 'c': // Deprecated
-                        case 'o': tile = Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
+                        case 'o': tile = new Orb(i * GRID_SIZE + GRID_SIZE / 2, j * GRID_SIZE + GRID_SIZE / 2)
                             break
                         default:
                             if (this.map[j][i] === '') break
                             if (this.map[j][i] && !isNaN(this.map[j][i])) {
-                                tile = Transition(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, this.map[j][i], this.id)
+                                tile = new Transition(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE, this.map[j][i], this.id)
                                 break
                             }
 
@@ -503,5 +503,85 @@ class Pyre {
             this.previousTimestamp = timestamp
             requestAnimationFrame(this.loop.bind(this))
         }
+    }
+
+
+
+
+
+    static Object = class {
+        constructor(x = 0, y = 0, w = 10, h = 10) {
+            this.pos = new Pyre.Vector(x, y)
+            this.vel = new Pyre.Vector(0, 0)
+            this.size = new Pyre.Vector(w, h)
+            this.color = 'white'
+            this.gravity = false
+            this.moves = false
+            this.collision = false
+            this.obstructs = false
+            this.shootable = true
+            this.facingDirection = null
+            this.destroy = false
+
+            Data.objects.push(this)
+        }
+        
+        loadImage(image) {
+            this.image = image
+            Sprites.loadSprite(this.image)
+        }
+        center() {
+            return new Pyre.Vector(this.pos.x + this.size.x / 2, this.pos.y + this.size.y / 2)
+        }
+        draw() {
+            camera.RenderObj(this)
+        }
+        update() {
+            if (this.gravity && !this.grounded) {
+                this.vel.add(GRAVITY.clone().multiply(Game.timeScale))
+            }
+
+            this.pos.add(this.vel.clone().multiply(Game.timeScale))
+        }
+        damage(dam) {
+            if (this.health) {
+                this.health -= dam
+                if (this.health <= 0) {
+                    if (this.breakable) {
+                        if (!this.broken) this.break()
+                    } else {
+                        this.destroy = true
+                    }
+                }
+            }
+        }
+        
+        checkCollision() {
+            if (!this.collision) return
+
+            for (let i = 0; i < Data.objects.length; i++) {
+                let that = Data.objects[i]
+
+                if (!that.collision) continue
+                if (this == that) continue
+                if (!this.moves && !that.moves) continue
+                let dist = this.pos.distance(that.pos)
+                if (dist > this.size.x && dist > this.size.y && dist > that.size.x && dist > that.size.y) continue
+
+                if (Collides(this, that) || Collides(that, this)) {
+                    Data.collisions.push([this, that])
+                }
+            }
+        }
+        facing() {
+            if (this.facingDirection == 'left') return -1
+            else if (this.facingDirection == 'right') return 1
+            else return 0
+        }
+        applyForce(force) {
+            this.vel.add(force)
+        }
+        onCollision(other) { }
+        onDestroy() { }
     }
 }

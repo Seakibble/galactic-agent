@@ -1,32 +1,26 @@
-Explosion = function (x, y, w, h, lifetime) {
-    let obj = Obj(x, y)
-    obj.size.set(w, h)
-    obj.lifetime = lifetime * FPS
-    obj.life = obj.lifetime
-    
-    obj.color = "orange"
-    obj.image = 'explosion'
+class Explosion extends Pyre.Object {
+    constructor(x, y, w, h, lifetime) {
+        super(x, y, w, h)
+        this.lifetime = lifetime * FPS
+        this.life = this.lifetime
+        this.color = "orange"
+        this.image = 'explosion'
 
-    // obj.draw = function () {
-    //     camera.Render(Draw(this.pos.x, this.pos.y, 32, 32, 'white', Pivot(16, 16, 0), this.image), 2)
-    // }
+        Sprites.loadSprite('explosion')
+        Sprites.loadSprite('explosionAfter')
 
-    obj.update = function () {
+        Sound.loadSFX('explosion')
+    }
+
+    update() {
         if (this.life == this.lifetime) {
             Sound.playSFX('explosion')
         } else if (this.life == 0) {
-            obj.image = 'explosionAfter'
+            this.image = 'explosionAfter'
         } else if (this.life < -this.lifetime) {
             this.destroy = true
         }
 
         this.life--
     }
-
-    Sprites.loadSprite(obj.image)
-    Sprites.loadSprite('explosionAfter')
-
-    Sound.loadSFX('explosion')
-    Data.objects.push(obj)
-    return obj
 }

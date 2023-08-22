@@ -1,31 +1,32 @@
-GlassPane = function (x, y, w, h) {
-    let obj = Obj(x, y)
-    obj.size.x = w
-    obj.size.y = h
-    obj.glassPane = true
+class GlassPane extends Pyre.Object {
+    constructor(x, y, w, h) {
+        super(x, y, w, h)
+        this.glassPane = true
+        this.color = "rgba(200,200,255,0.3)"
+        this.brokenColor = "rgba(50,50,100,0.3)"
+        this.collision = true
+        this.obstructs = true
+        this.breakable = true
+        this.broken = false
+        this.breakingThreshhold = 15
+        this.health = 1
 
-    obj.color = "rgba(200,200,255,0.3)"
-    obj.brokenColor = "rgba(50,50,100,0.3)"
-    obj.collision = true
-    obj.obstructs = true
-    obj.breakable = true
-    obj.broken = false
-    obj.breakingThreshhold = 15
-    obj.health = 1
-    
-    obj.onCollision = function (other, velocity) {
+        Sound.loadSFX('glassBreak')
+    }
+
+    onCollision(other, velocity) {
         if (velocity >= this.breakingThreshhold) {
             this.break()
         }
     }
 
-    obj.break = function (silent = false) {
+    break(silent = false) {
         if (!this.broken) {
             this.broken = true
             // audio.glassBreak.play()
             if (!silent) Sound.playSFX('glassBreak')
-            obj.collision = false
-            obj.obstructs = false
+            this.collision = false
+            this.obstructs = false
             this.color = this.brokenColor
 
             if (this.adjacent) {
@@ -35,8 +36,4 @@ GlassPane = function (x, y, w, h) {
             }
         }
     }
-    
-    Sound.loadSFX('glassBreak')
-    Data.objects.push(obj)
-    return obj
 }
